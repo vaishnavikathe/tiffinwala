@@ -1,79 +1,176 @@
-import { Link } from "react-router-dom";
+// pages/VendorRegister.jsx
+import React, { useState } from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
-export default function VendorRegister() {
+function VendorRegister() {
+
+  // ── FORM DATA STATE ──
+  // Stores all input values in one object
+  const [formData, setFormData] = useState({
+    vendorName:     '',
+    restaurantName: '',
+    mobile:         '',
+    email:          '',
+    address:        '',
+    cuisine:        ''
+  });
+
+  // ── UI STATE ──
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // ── HANDLE INPUT CHANGE ──
+  // Updates state dynamically as the user types
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  }
+
+  // ── HANDLE FORM SUBMIT ──
+  function handleSubmit(e) {
+    e.preventDefault(); // Prevents page reload
+
+    // Step 1: Validation
+    if (
+      !formData.vendorName ||
+      !formData.restaurantName ||
+      !formData.mobile ||
+      !formData.email ||
+      !formData.address
+    ) {
+      setErrorMessage('Please fill in all required fields marked with *');
+      return;
+    }
+
+    // Step 2: Mobile Check (10 digits)
+    if (formData.mobile.length !== 10 || isNaN(formData.mobile)) {
+      setErrorMessage('Mobile number must be exactly 10 digits.');
+      return;
+    }
+
+    // Step 3: Success Logic
+    setErrorMessage('');
+    setIsSubmitted(true);
+
+    // Reset the form fields after successful submission
+    setFormData({
+      vendorName: '',
+      restaurantName: '',
+      mobile: '',
+      email: '',
+      address: '',
+      cuisine: ''
+    });
+
+    console.log("New Vendor Registered:", formData);
+  }
+
   return (
-    <div className="w-full flex-grow bg-[#121621] flex flex-col items-center justify-center text-white py-12">
-      <div className="w-full max-w-xs text-center">
-        <h2 className="text-3xl font-bold mb-10">Vendor Registration</h2>
+    <div className="vendor-register-page">
+      <Navbar />
 
-        <div className="space-y-6">
-          {/* Shop/Restaurant Name Field */}
-          <div className="flex flex-col items-center">
-            <label className="mb-2 text-gray-300">Shop / Restaurant Name</label>
-            <input 
-              type="text" 
-              placeholder="Enter name"
-              className="bg-transparent border border-gray-600 rounded p-2 w-full focus:outline-none focus:border-blue-500 text-center"
-            />
-          </div>
+      <section className="page-header">
+        <h1>Register as a Vendor</h1>
+        <p>Join TiffinWala and grow your business by reaching local customers.</p>
+      </section>
 
-          {/* Shop/Restaurant Address Field */}
-          <div className="flex flex-col items-center">
-            <label className="mb-2 text-gray-300">Shop Address</label>
-            <textarea 
-              placeholder="Enter full address"
-              rows="3"
-              className="bg-transparent border border-gray-600 rounded p-2 w-full focus:outline-none focus:border-blue-500 text-center resize-none"
-            />
-          </div>
+      <section className="form-section">
+        <div className="form-box">
+          <h2>Vendor Details</h2>
 
-          {/* Owner/Vendor Name Field */}
-          <div className="flex flex-col items-center">
-            <label className="mb-2 text-gray-300">Owner Name</label>
-            <input 
-              type="text" 
-              placeholder="Enter your name"
-              className="bg-transparent border border-gray-600 rounded p-2 w-full focus:outline-none focus:border-blue-500 text-center"
-            />
-          </div>
+          <form onSubmit={(e) => e.preventDefault()}>
+            <div className="form-group">
+              <label>Owner/Vendor Name *</label>
+              <input
+                type="text"
+                name="vendorName"
+                placeholder="Full Name"
+                value={formData.vendorName}
+                onChange={handleChange}
+              />
+            </div>
 
-          {/* Email Field */}
-          <div className="flex flex-col items-center">
-            <label className="mb-2 text-gray-300">Email</label>
-            <input 
-              type="email" 
-              placeholder="Enter email"
-              className="bg-transparent border border-gray-600 rounded p-2 w-full focus:outline-none focus:border-blue-500 text-center"
-            />
-          </div>
+            <div className="form-group">
+              <label>Restaurant / Mess Name *</label>
+              <input
+                type="text"
+                name="restaurantName"
+                placeholder="e.g. Annapurna Mess"
+                value={formData.restaurantName}
+                onChange={handleChange}
+              />
+            </div>
 
-          {/* Password Field */}
-          <div className="flex flex-col items-center">
-            <label className="mb-2 text-gray-300">Password</label>
-            <input 
-              type="password" 
-              placeholder="Enter password"
-              className="bg-transparent border border-gray-600 rounded p-2 w-full focus:outline-none focus:border-blue-500 text-center"
-            />
-          </div>
+            <div className="form-group">
+              <label>Mobile Number *</label>
+              <input
+                type="tel"
+                name="mobile"
+                maxLength="10"
+                placeholder="10-digit number"
+                value={formData.mobile}
+                onChange={handleChange}
+              />
+            </div>
 
-          {/* Register Button */}
-          <button className="w-full bg-[#1e5aff] hover:bg-blue-700 text-white font-medium py-3 rounded transition-colors mt-4">
-            Register Business
-          </button>
+            <div className="form-group">
+              <label>Email Address *</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="email@example.com"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </div>
 
-          {/* Navigation to Login Page */}
-          <p className="mt-8 text-gray-400 text-sm">
-            Already have an account?{" "}
-            <Link 
-              to="/vendor/login" 
-              className="text-[#1e5aff] font-semibold hover:underline decoration-2 underline-offset-4"
+            <div className="form-group">
+              <label>Full Address *</label>
+              <textarea
+                name="address"
+                rows="3"
+                placeholder="Shop address, Area, City"
+                value={formData.address}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Cuisine Type</label>
+              <select name="cuisine" value={formData.cuisine} onChange={handleChange}>
+                <option value="">-- Select --</option>
+                <option value="maharashtrian">Maharashtrian</option>
+                <option value="north-indian">North Indian</option>
+                <option value="jain">Jain Food</option>
+                <option value="multi">Multi-cuisine</option>
+              </select>
+            </div>
+
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+            <button
+              type="button"
+              className="btn"
+              onClick={handleSubmit}
+              disabled={isSubmitted}
+              style={{ width: '100%', opacity: isSubmitted ? 0.6 : 1 }}
             >
-              Login here
-            </Link>
-          </p>
+              {isSubmitted ? 'Request Sent!' : 'Submit Registration'}
+            </button>
+
+            {isSubmitted && (
+              <div className="success-message">
+                ✓ Registration successful! Our team will call you within 24 hours.
+              </div>
+            )}
+          </form>
         </div>
-      </div>
+      </section>
+
+      <Footer />
     </div>
   );
 }
+
+export default VendorRegister;

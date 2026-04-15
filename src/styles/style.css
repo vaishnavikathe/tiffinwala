@@ -1,0 +1,295 @@
+/* ============================================
+   TIFFINWALA - GLOBAL STYLESHEET
+============================================ */
+
+/* ── COLORS & VARIABLES ── */
+:root {
+  --primary-color: #e8630a;    /* TiffinWala Orange */
+  --primary-hover: #bf5208;
+  --bg-light: #f9f9f9;
+  --text-dark: #333333;
+  --text-muted: #666666;
+  --white: #ffffff;
+  --success: #2ecc71;
+  --error: #e74c3c;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ── RESET ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* ── LAYOUT ── */
+main {
+  min-height: 80vh; /* Keeps footer at bottom on short pages */
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  background-color: var(--white);
+  border-bottom: 3px solid var(--primary-color);
+  padding: 15px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--primary-color);
+  letter-spacing: -1px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-muted);
+  margin-left: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover, 
+.nav-links a.active {
+  color: var(--primary-color);
+  background-color: #fff4ec;
+}
+
+/* Special Style for Login Button in Nav */
+.nav-links .login-btn-nav {
+  background-color: var(--primary-color);
+  color: var(--white) !important;
+  margin-left: 30px;
+}
+
+.nav-links .login-btn-nav:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+/* ── HERO SECTION ── */
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+              url('https://images.unsplash.com/photo-1547524513-306917646d5c?auto=format&fit=crop&w=1350&q=80');
+  background-size: cover;
+  background-position: center;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--white);
+  padding: 0 20px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 20px;
+  max-width: 700px;
+  margin: 0 auto 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--primary-hover);
+  box-shadow: 0 5px 15px rgba(232, 99, 10, 0.3);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--white);
+}
+
+.btn-outline:hover {
+  background-color: var(--white);
+  color: var(--primary-color);
+}
+
+/* ── FORMS (Registration & Login) ── */
+.form-section {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.form-box {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 500px;
+}
+
+.form-box h2 {
+  margin-bottom: 25px;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+}
+
+/* ── MESSAGES ── */
+.error-message {
+  color: var(--error);
+  background: #fdeaea;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  border-left: 4px solid var(--error);
+}
+
+.success-message {
+  color: var(--success);
+  background: #eafaf1;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 15px;
+  border-left: 4px solid var(--success);
+}
+
+/* ── STATS & FEATURES ── */
+.stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px 5%;
+  background: var(--white);
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  text-align: center;
+  padding: 20px;
+}
+
+.stat-box h2 {
+  font-size: 36px;
+  color: var(--primary-color);
+}
+
+.features {
+  padding: 80px 5%;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 50px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background: var(--white);
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  transition: 0.3s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow);
+}
+
+.feature-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+/* ── FOOTER ── */
+.footer {
+  background-color: #222;
+  color: var(--white);
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.footer-content p {
+  margin-bottom: 10px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 32px; }
+  .navbar { flex-direction: column; gap: 15px; }
+  .nav-links a { margin-left: 10px; margin-right: 10px; }
+}
