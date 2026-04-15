@@ -7,6 +7,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  
   const handleLogin = (e) => {
     e.preventDefault();
     console.log("Logging in with:", email, password);
@@ -16,6 +17,7 @@ function Login() {
   return (
     <div className="login-page">
       <Navbar />
+       
       <section className="form-section">
         <div className="form-box">
           <h2>Vendor Login</h2>
@@ -29,6 +31,7 @@ function Login() {
                 required 
               />
             </div>
+            
             <div className="form-group">
               <label>Password</label>
               <input 

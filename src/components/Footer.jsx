@@ -2,17 +2,20 @@
 import React from 'react';
 
 function Footer() {
-  
+
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer">
-      <div className="footer-content">
-        <p>© {currentYear} TiffinWala. All rights reserved.</p>
-        <p style={{ fontSize: '12px', marginTop: '5px', opacity: 0.7 }}>
-          Healthy home-cooked meals delivered to your doorstep.
-        </p>
-      </div>
+    <footer className="bg-[#1A1208] text-center py-6">
+
+      <p className="font-sans text-sm text-gray-400">
+        © {currentYear} <span className="text-orange-400">TiffinWala</span> — Fresh meals, happy customers.
+      </p>
+
+      <p className="font-sans text-xs text-gray-500 mt-1">
+        Healthy home-cooked meals delivered to your doorstep.
+      </p>
+
     </footer>
   );
 }

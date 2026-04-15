@@ -11,7 +11,7 @@ function Navbar() {
         <NavLink to="/about">About</NavLink>
         <NavLink to="/vendor">Register</NavLink>
         {/* Added Login Button */}
-        <NavLink to="/login" className="login-btn-nav">Login</NavLink>
+        <NavLink to="/login" className="login-btn-nav">Join as Vendor</NavLink>
       </div>
     </nav>
   );
