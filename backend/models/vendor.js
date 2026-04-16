@@ -22,6 +22,10 @@ const vendorSchema= new mongoose.Schema({
     password:{
         type:String,
         required:True,
+    },
+    cuisine:{
+        type:String,
+        required:True,
     }   
-},{ timestamps : Ture});
+},{ timestamps : True});
 export default mangoose.models('vendors',userSchema);
