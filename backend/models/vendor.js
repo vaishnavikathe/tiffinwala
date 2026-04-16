@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const vendorSchema= new mongoose.Schema({
+const Vendor= new mongoose.Schema({
 
     ownwerName:{
         type:String,
@@ -10,7 +10,7 @@ const vendorSchema= new mongoose.Schema({
         type:String,
         required:true,
     },
-    addresss:{
+    address:{
         type:String,
         required:true,
     },
@@ -24,4 +24,4 @@ const vendorSchema= new mongoose.Schema({
         required:true,
     }   
 },{ timestamps : true});
-export default mangoose.models('vendors',userSchema);
+export default mongoose.model('vendors',Vendor);

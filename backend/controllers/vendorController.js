@@ -1,10 +1,10 @@
-import Vendor from "../models/vendor";
+import Vendor from "../models/vendor.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const registerVendor= async (req,res)=>{
   try{
-    const{name,address,mobile,password,cuisine} = req.body;
+    const{ownerName,address,mobile,password,cuisine,shopName} = req.body;
 
     const existing = await Vendor.findOne({ mobile });
         if (existing) {
@@ -17,11 +17,12 @@ export const registerVendor= async (req,res)=>{
   const hashedPassword = await bcrypt.hash(password, 10);
    
   const vendor =Vendor.create({
-    name,
+    ownerName,
     address,
     mobile,
     passwor: hashedPassword,
-    cuisine
+    cuisine,
+    shopName
   });
   
   res.status(201).json({
