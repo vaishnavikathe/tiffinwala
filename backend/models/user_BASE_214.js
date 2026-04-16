@@ -18,14 +18,6 @@ const userSchema= new mongoose.Schema({
     password:{
         type:String,
         required:True,
-<<<<<<< HEAD
-    },   
-    email:{
-        type:String,
-        required:True,
-    }
-=======
     }   
->>>>>>> c887eb11ae8b947e2fd458eb4b5eeeb7e4cf419e
-},{ timestamps : True});
+},{ timestamps : Ture});
 export default mangoose.models('user',userSchema);
