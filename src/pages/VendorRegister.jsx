@@ -1,174 +1,122 @@
-// pages/VendorRegister.jsx
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 function VendorRegister() {
-
-  // ── FORM DATA STATE ──
-  // Stores all input values in one object
   const [formData, setFormData] = useState({
-    vendorName:     '',
-    restaurantName: '',
-    mobile:         '',
-    email:          '',
-    address:        '',
-    cuisine:        ''
+    vendorName: '', 
+    restaurantName: '', 
+    mobile: '', 
+    email: '', 
+    address: '', 
+    cuisine: ''
   });
 
-  // ── UI STATE ──
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // ── HANDLE INPUT CHANGE ──
-  // Updates state dynamically as the user types
-  function handleChange(e) {
+  // This handles updating the state when you type
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  }
+  };
 
-  // ── HANDLE FORM SUBMIT ──
-  function handleSubmit(e) {
-    e.preventDefault(); // Prevents page reload
-
-    // Step 1: Validation
-    if (
-      !formData.vendorName ||
-      !formData.restaurantName ||
-      !formData.mobile ||
-      !formData.email ||
-      !formData.address
-    ) {
-      setErrorMessage('Please fill in all required fields marked with *');
-      return;
-    }
-
-    // Step 2: Mobile Check (10 digits)
-    if (formData.mobile.length !== 10 || isNaN(formData.mobile)) {
-      setErrorMessage('Mobile number must be exactly 10 digits.');
-      return;
-    }
-
-    // Step 3: Success Logic
-    setErrorMessage('');
-    setIsSubmitted(true);
-
-    // Reset the form fields after successful submission
-    setFormData({
-      vendorName: '',
-      restaurantName: '',
-      mobile: '',
-      email: '',
-      address: '',
-      cuisine: ''
-    });
-
-    console.log("New Vendor Registered:", formData);
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Submitted:", formData);
+    alert("Registration Request Sent!");
+  };
 
   return (
-    <div className="vendor-register-page">
-      <Navbar />
+    <div className="bg-gray-50 py-16 px-4">
+      <section className="max-w-lg mx-auto bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+        <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center text-orange-600">
+          Vendor Registration
+        </h2>
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Vendor Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Owner/Vendor Name</label>
+            <input 
+              name="vendorName"
+              type="text" 
+              value={formData.vendorName}
+              onChange={handleChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
+              placeholder="Your Name"
+              required
+            />
+          </div>
 
-      <section className="page-header">
-        <h1>Register as a Vendor</h1>
-        <p>Join TiffinWala and grow your business by reaching local customers.</p>
+          {/* Restaurant Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Restaurant/Mess Name</label>
+            <input 
+              name="restaurantName"
+              type="text" 
+              value={formData.restaurantName}
+              onChange={handleChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
+              placeholder="e.g. Nashik Tiffin Center"
+              required
+            />
+          </div>
+
+          {/* Mobile */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Mobile Number</label>
+            <input 
+              name="mobile"
+              type="tel" 
+              value={formData.mobile}
+              onChange={handleChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
+              placeholder="10-digit number"
+              required
+            />
+          </div>
+
+          {/* Address */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Shop Address</label>
+            <textarea 
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
+              placeholder="Full address of your shop/restaurant"
+              rows="3"
+              required
+            />
+          </div>
+
+
+            <div>
+  <label className="block text-sm font-medium text-gray-700">
+    Cuisine Type
+  </label>
+
+  <select
+    name="cuisine"
+    value={formData.cuisine}
+    onChange={handleChange}
+    className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white focus:ring-orange-500  outline-none"
+    required
+  >
+    <option value="">-- Select --</option>
+    <option value="maharashtrian">Maharashtrian</option>
+    <option value="north-indian">North Indian</option>
+    <option value="jain">Jain Food</option>
+    <option value="multi">Multi-cuisine</option>
+  </select>
+</div>
+
+            
+
+          <button 
+            type="submit" 
+            className="w-full bg-orange-600 text-white py-3 rounded-lg font-bold hover:bg-orange-700 transition-all shadow-md active:scale-95"
+          >
+            Submit Registration
+          </button>
+        </form>
       </section>
-
-      <section className="form-section">
-        <div className="form-box">
-          <h2>Vendor Details</h2>
-
-          <form onSubmit={(e) => e.preventDefault()}>
-            <div className="form-group">
-              <label>Owner/Vendor Name *</label>
-              <input
-                type="text"
-                name="vendorName"
-                placeholder="Full Name"
-                value={formData.vendorName}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Restaurant / Mess Name *</label>
-              <input
-                type="text"
-                name="restaurantName"
-                placeholder="e.g. Annapurna Mess"
-                value={formData.restaurantName}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Mobile Number *</label>
-              <input
-                type="tel"
-                name="mobile"
-                maxLength="10"
-                placeholder="10-digit number"
-                value={formData.mobile}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Email Address *</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="email@example.com"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Full Address *</label>
-              <textarea
-                name="address"
-                rows="3"
-                placeholder="Shop address, Area, City"
-                value={formData.address}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Cuisine Type</label>
-              <select name="cuisine" value={formData.cuisine} onChange={handleChange}>
-                <option value="">-- Select --</option>
-                <option value="maharashtrian">Maharashtrian</option>
-                <option value="north-indian">North Indian</option>
-                <option value="jain">Jain Food</option>
-                <option value="multi">Multi-cuisine</option>
-              </select>
-            </div>
-
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-            <button
-              type="button"
-              className="btn"
-              onClick={handleSubmit}
-              disabled={isSubmitted}
-              style={{ width: '100%', opacity: isSubmitted ? 0.6 : 1 }}
-            >
-              {isSubmitted ? 'Request Sent!' : 'Submit Registration'}
-            </button>
-
-            {isSubmitted && (
-              <div className="success-message">
-                ✓ Registration successful! Our team will call you within 24 hours.
-              </div>
-            )}
-          </form>
-        </div>
-      </section>
-
-      <Footer />
     </div>
   );
 }

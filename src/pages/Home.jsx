@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 function Home() {
   return (
     <div className="home-page">
-      <Navbar />
+     
 
       {/* Inside the Hero Section of Home.jsx */}
       <section className="bg-gradient-to-b from-[#FFF8F3] via-[#FFF4EC] to-[#FDE8D8] py-20 text-center">
@@ -125,7 +125,7 @@ function Home() {
 
       </section>
 
-      <Footer />
+      
     </div>
   );
 }

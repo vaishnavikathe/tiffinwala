@@ -1,27 +1,30 @@
-// App.jsx
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import About from './pages/About';
+import VendorRegister from './pages/VendorRegister';
+import VendorLogin from './pages/VendorLogin'; // Check if this filename is exactly VendorLogin.jsx
 
-import Home from './pages/Home.jsx';
-import About from './pages/About.jsx';
-import VendorRegister from './pages/VendorRegister.jsx';
-// 1. Create this file in your pages folder first!
-import Login from './pages/VendorLogin.jsx'; 
-
-// 2. Fix this path to match your folder structure
-import './styles/style.css'; 
+import './index.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/"        element={<Home />} />
-        <Route path="/about"   element={<About />} />
-        <Route path="/vendor"  element={<VendorRegister />} />
-        {/* 3. Added the Login Route */}
-        <Route path="/login"   element={<Login />} /> 
-      </Routes>
-    </BrowserRouter>
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/vendor" element={<VendorRegister />} />
+            <Route path="/login" element={<VendorLogin />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
