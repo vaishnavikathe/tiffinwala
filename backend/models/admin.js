@@ -11,4 +11,4 @@ const adminSchema = new mongoose.Schema({
         required:true
     }
 })
-export default mangoose.models('admin',adminSchema);
+export default mongoose.models('admin',adminSchema);

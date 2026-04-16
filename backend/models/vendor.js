@@ -24,4 +24,4 @@ const vendorSchema= new mongoose.Schema({
         required:true,
     }   
 },{ timestamps : true});
-export default mangoose.models('vendors',userSchema);
+export default mongoose.models('vendors',userSchema);
