@@ -23,5 +23,5 @@ const vendorSchema= new mongoose.Schema({
         type:String,
         required:True,
     }   
-},{ timestamps : Ture});
+},{ timestamps : True});
 export default mangoose.models('vendors',userSchema);
