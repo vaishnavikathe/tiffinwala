@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Vendor= new mongoose.Schema({
 
-    ownwerName:{
+    ownerName:{
         type:String,
         required:true,
     },
@@ -24,8 +24,4 @@ const Vendor= new mongoose.Schema({
         required:true,
     }   
 },{ timestamps : true});
-<<<<<<< HEAD
 export default mongoose.model('vendors',Vendor);
-=======
-export default mongoose.models('vendors',userSchema);
->>>>>>> ca03876bab315ab8afb479bf0129a665388ea767

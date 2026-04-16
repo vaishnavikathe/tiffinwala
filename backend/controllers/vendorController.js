@@ -20,7 +20,7 @@ export const registerVendor= async (req,res)=>{
     ownerName,
     address,
     mobile,
-    passwor: hashedPassword,
+    password: hashedPassword,
     cuisine,
     shopName
   });
