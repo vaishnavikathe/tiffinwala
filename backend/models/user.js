@@ -4,24 +4,24 @@ const userSchema= new mongoose.Schema({
 
     name:{
         type:String,
-        required:True,
+        required:true,
     },
-    addresss:{
+    address:{
         type:String,
-        required:True,
+        required:true,
     },
     mobile:{
         type:String,
-        required:True,
-        unique:True,
+        required:true,
+        unique:true,
     },
     password:{
         type:String,
-        required:True,
+        required:true,
     },
     email:{
         type:String,
-        required:True,
+        required:true,
     }  
-},{ timestamps : True});
-export default mangoose.models('user',userSchema);
+},{ timestamps : true});
+export default mongoose.model('user',userSchema);

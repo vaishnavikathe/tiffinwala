@@ -4,24 +4,24 @@ const vendorSchema= new mongoose.Schema({
 
     ownwerName:{
         type:String,
-        required:True,
+        required:true,
     },
     shopName:{
         type:String,
-        required:True,
+        required:true,
     },
     addresss:{
         type:String,
-        required:True,
+        required:true,
     },
     mobile:{
         type:String,
-        required:True,
-        unique:True,
+        required:true,
+        unique:true,
     },
     password:{
         type:String,
-        required:True,
+        required:true,
     }   
-},{ timestamps : True});
+},{ timestamps : true});
 export default mangoose.models('vendors',userSchema);
