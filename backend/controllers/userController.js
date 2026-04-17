@@ -7,7 +7,12 @@ export const registerUser = async (req, res) => {
   try {
     const { name, mobile, address, password,email } = req.body;
 
-    const existing = await User.findOne({ mobile });
+    const existing = await User.findOne({ 
+      $or: [
+      { mobile: mobile },
+      { email: email }
+    ]
+     });
     if (existing) {
       return res.status(400).json({
         message: "User already registered, return to login"
@@ -37,8 +42,30 @@ export const registerUser = async (req, res) => {
 // LOGIN USER
 export const loginUser = async (req, res) => {
   try {
-    const { mobile, password } = req.body;
+    const { mobile, password, email} = req.body;
 
+//email
+
+if(email){
+      const vendor = await Vendor.findOne({ email });
+    if (!vendor) {
+      return res.status(401).json({ message: "Vendor not found" });
+    }
+
+    const isMatch = await bcrypt.compare(password, vendor.password); 
+
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid Password" });
+    }
+    const token = jwt.sign(
+          { id: vendor._id, role: "vendor" },
+          process.env.JWT_SECRET,
+          { expiresIn: "7d" }
+        );
+    res.json({ message: "Login Successfully", token });
+    }
+
+//mobile
     const user = await User.findOne({ mobile });
     if (!user) {
       return res.status(401).json({ message: "User not found" });
