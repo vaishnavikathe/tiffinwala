@@ -40,21 +40,21 @@ const About = () => {
         <div className="mt-12 grid md:grid-cols-3 gap-6">
 
           <div className="card text-center">
-            <h3 className="font-semibold text-lg">Our Mission</h3>
+            <h3 className="font-semibold text-lg">🚩 Our Mission</h3>
             <p className="text-gray-600 mt-2 text-sm">
               To make healthy meals accessible and affordable for everyone.
             </p>
           </div>
 
           <div className="card text-center">
-            <h3 className="font-semibold text-lg">Our Vision</h3>
+            <h3 className="font-semibold text-lg">🎯 Our Vision</h3>
             <p className="text-gray-600 mt-2 text-sm">
               To become the most trusted meal subscription platform.
             </p>
           </div>
 
           <div className="card text-center">
-            <h3 className="font-semibold text-lg">Our Values</h3>
+            <h3 className="font-semibold text-lg">🤝 Our Values</h3>
             <p className="text-gray-600 mt-2 text-sm">
               Quality, reliability, and customer satisfaction.
             </p>

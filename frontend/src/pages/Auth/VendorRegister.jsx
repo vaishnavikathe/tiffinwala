@@ -5,12 +5,14 @@ import Button from "../../components/ui/Button";
 
 const VendorRegister = () => {
   const [formData, setFormData] = useState({
-  name: "",
-  email: "",
-  phone: "",
-  password: "",
-  cuisine: "",
-});
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    cuisine: "",
+    shopName: "",
+    shopAddress: "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,9 +33,10 @@ const VendorRegister = () => {
     <div className="section flex justify-center items-center">
       <Card className="w-full max-w-md">
 
-        <h1 className="heading text-center">
+
+        <h2 className="text-3xl font-bold text-[#1A1208] mb-2 text-center">
           Vendor Registration
-        </h1>
+        </h2>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
 
@@ -47,16 +50,6 @@ const VendorRegister = () => {
           />
 
           <Input
-            label="Email"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-            required
-          />
-
-          <Input
             label="Shop Name"
             type="text"
             name="shopName"
@@ -66,18 +59,23 @@ const VendorRegister = () => {
             required
           />
 
-          <Input
-            label="Shop Address"
-            type="text"
-            name="shopAddress"
-            value={formData.shopAddress}
-            onChange={handleChange}
-            placeholder="Enter your shop address"
-            required
-          />
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">
+              Address
+            </label>
 
-            
-          
+            <textarea
+              name="shopAddress"
+              value={formData.shopAddress}
+              onChange={handleChange}
+              placeholder="Enter your shop address"
+              rows={3}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 
+               focus:border-orange-500 focus:ring-2 focus:ring-orange-200 
+               outline-none transition-all resize-none"
+              required
+            />
+          </div>
 
           <Input
             label="Email"
@@ -85,7 +83,7 @@ const VendorRegister = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="Enter your email"
+            placeholder="kitchen@gmail.com"
             required
           />
 
@@ -109,27 +107,27 @@ const VendorRegister = () => {
             required
           />
 
-<div>
-  <label className="text-sm font-medium">
-    Cuisine Type
-  </label>
+          <div>
+            <label className="text-sm font-medium">
+              Cuisine Type
+            </label>
 
-  <select
-    name="cuisine"
-    value={formData.cuisine}
-    onChange={handleChange}
-    required
-    className="w-full mt-1 px-3 py-2 border rounded-md 
+            <select
+              name="cuisine"
+              value={formData.cuisine}
+              onChange={handleChange}
+              required
+              className="w-full mt-1 px-3 py-2 border rounded-md 
                bg-white text-gray-700
                focus:outline-none focus:ring-2 focus:ring-orange-500"
-  >
-    <option value="">Select cuisine</option>
-    <option value="Maharashtra">Maharashtra</option>
-    <option value="North-Indian">North-Indian</option>
-    <option value="Jain">Jain</option>
-    <option value="Multi-Cuisine">Multi-Cuisine</option>
-  </select>
-</div>
+            >
+              <option value="">Select cuisine</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="North-Indian">North-Indian</option>
+              <option value="Jain">Jain</option>
+              <option value="Multi-Cuisine">Multi-Cuisine</option>
+            </select>
+          </div>
 
           <Button type="submit" className="w-full mt-4">
             Register

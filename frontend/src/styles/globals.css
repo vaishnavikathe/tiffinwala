@@ -10,7 +10,6 @@
 
 
 
-
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--bg);
@@ -136,4 +135,19 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: #ccc;
   border-radius: 10px;
+}
+
+/* Prevent pull-down / pull-up white gap (overscroll bounce) */
+html, body {
+  overscroll-behavior: none;
+}
+
+/* Prevent unwanted horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+/* Ensure full height layout */
+#root {
+  min-height: 100vh;
 }
