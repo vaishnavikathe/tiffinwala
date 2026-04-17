@@ -47,21 +47,21 @@ const Home = () => {
 
           <div className="grid md:grid-cols-3 gap-6 mt-10">
             <div className="card">
-              <h3 className="font-semibold text-lg">Healthy Meals</h3>
+              <h3 className="font-semibold text-lg">🥕 Healthy Meals</h3>
               <p className="text-gray-600 mt-2">
                 Freshly cooked food with balanced nutrition every day.
               </p>
             </div>
 
             <div className="card">
-              <h3 className="font-semibold text-lg">Flexible Plans</h3>
+              <h3 className="font-semibold text-lg">🔄 Flexible Plans</h3>
               <p className="text-gray-600 mt-2">
                 Customize your meal subscriptions as per your needs.
               </p>
             </div>
 
             <div className="card">
-              <h3 className="font-semibold text-lg">Reliable Delivery</h3>
+              <h3 className="font-semibold text-lg">⏱️ Reliable Delivery</h3>
               <p className="text-gray-600 mt-2">
                 On-time delivery with real-time tracking.
               </p>
@@ -71,7 +71,7 @@ const Home = () => {
       </section>
 
       {/* CTA SECTION */}
-      <section className="bg-gray-100 section">
+      <section className="section">
         <div className="container-custom text-center">
           <h2 className="heading">
             Ready to Start Your Meal Plan?
