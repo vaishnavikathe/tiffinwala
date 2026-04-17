@@ -7,7 +7,6 @@ const NAV_LINKS = [
 
 const Navbar = () => {
   return (
-    // Added w-screen and left-0 to ensure it pins to the very edge
     <nav className="bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md w-screen overflow-hidden">
       <div className="w-full flex justify-between items-center py-4 px-6 md:px-10">
         
@@ -34,15 +33,8 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Auth/Vendor Links */}
+          {/* Auth/Vendor Links - "Vendor Login" removed for a cleaner look */}
           <div className="flex items-center gap-4 md:gap-6">
-            <Link
-              to="/vendor-login"
-              className="text-sm font-medium hover:text-orange-200 transition hidden sm:block"
-            >
-              Vendor Login
-            </Link>
-
             <Link
               to="/user-register"
               className="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-orange-600 transition text-sm font-semibold whitespace-nowrap"
@@ -50,8 +42,9 @@ const Navbar = () => {
               Sign Up
             </Link>
 
+            {/* Clicking "Join as Vendor" now leads directly to the Login page */}
             <Link
-              to="/vendor-register"
+              to="/vendor-login"
               className="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-orange-600 transition text-sm font-semibold whitespace-nowrap"
             >
               Join as Vendor
