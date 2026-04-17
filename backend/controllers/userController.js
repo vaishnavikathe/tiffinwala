@@ -47,18 +47,18 @@ export const loginUser = async (req, res) => {
 //email
 
 if(email){
-      const vendor = await Vendor.findOne({ email });
+      const vendor = await User.findOne({ email });
     if (!vendor) {
-      return res.status(401).json({ message: "Vendor not found" });
+      return res.status(401).json({ message: "User not found" });
     }
 
-    const isMatch = await bcrypt.compare(password, vendor.password); 
+    const isMatch = await bcrypt.compare(password, user.password); 
 
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid Password" });
     }
     const token = jwt.sign(
-          { id: vendor._id, role: "vendor" },
+          { id: user._id, role: "user" },
           process.env.JWT_SECRET,
           { expiresIn: "7d" }
         );
