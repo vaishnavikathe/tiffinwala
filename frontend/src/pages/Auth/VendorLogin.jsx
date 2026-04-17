@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 
 const VendorLogin = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -59,6 +62,17 @@ const VendorLogin = () => {
           </Button>
 
         </form>
+
+        {/* Redirect */}
+        <p className="text-sm text-center mt-4 text-gray-600">
+          Don’t have an account?{" "}
+          <span
+            onClick={() => navigate("/vendor-register")}
+            className="text-orange-500 cursor-pointer font-medium"
+          >
+            Register
+          </span>
+        </p>
       </Card>
     </div>
   );

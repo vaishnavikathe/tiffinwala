@@ -19,7 +19,7 @@ const Home = () => {
 
           <div className="mt-6 flex justify-center gap-4">
             <button
-              onClick={() => navigate("/vendors")}
+              onClick={() => navigate("/user-login")}
               className="btn-primary"
             >
               Get Started
@@ -42,14 +42,14 @@ const Home = () => {
             Why Choose TiffinWala?
           </h2>
           <p className="subheading">
-            Designed for convenience, health, and reliability
+            Everything you need in one place
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6 mt-10">
+          <div className="grid md:grid-cols-3 gap-10 mt-10">
             <div className="card">
-              <h3 className="font-semibold text-lg">🥕 Healthy Meals</h3>
+              <h3 className="font-semibold text-lg">🥕 Healthy & Balanced</h3>
               <p className="text-gray-600 mt-2">
-                Freshly cooked food with balanced nutrition every day.
+                Nutritionally balanced menus with options for vegetarian, Jain, and special diet requirements.
               </p>
             </div>
 
@@ -63,7 +63,25 @@ const Home = () => {
             <div className="card">
               <h3 className="font-semibold text-lg">⏱️ Reliable Delivery</h3>
               <p className="text-gray-600 mt-2">
-                On-time delivery with real-time tracking.
+                Meals delivered hot and on time. Track your tiffin delivery in real time with ease.
+              </p>
+            </div>
+            <div className="card">
+              <h3 className="font-semibold text-lg">🍱 Fresh Daily Tiffins</h3>
+              <p className="text-gray-600 mt-2">
+                Hygienic, home-like meals prepared fresh every morning by verified vendors in your area.
+              </p>
+            </div>
+            <div className="card">
+              <h3 className="font-semibold text-lg">✅ Verified Vendors</h3>
+              <p className="text-gray-600 mt-2">
+                Every vendor on our platform is background-checked and food-safety certified before listing.
+              </p>
+            </div>
+            <div className="card">
+              <h3 className="font-semibold text-lg">💰Affordable Plans</h3>
+              <p className="text-gray-600 mt-2">
+                Monthly, weekly, and daily subscriptions starting at just ₹60 per meal. No hidden charges.
               </p>
             </div>
           </div>
@@ -80,12 +98,12 @@ const Home = () => {
             Join hundreds of users enjoying hassle-free meals daily.
           </p>
 
-          <button 
-  onClick={() => navigate("/vendors")} 
-  className="btn-primary mt-6"
->
-  Browse Vendors
-</button>
+          <button
+            onClick={() => navigate("/vendors")}
+            className="btn-primary mt-6"
+          >
+            Browse Vendors
+          </button>
         </div>
       </section>
 

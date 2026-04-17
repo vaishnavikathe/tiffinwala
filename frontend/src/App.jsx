@@ -5,11 +5,11 @@ import Layout from "./components/layout/Layout";
 
 // Pages
 import Home from "./pages/Home/Home";
-import About from "./pages/About/About";
-import VendorLogin from "./pages/Vendor/VendorLogin";
-import VendorRegister from "./pages/Vendor/VendorRegister";
-import UserLogin from "./pages/User/UserLogin";
-import UserRegister from "./pages/User/UserRegister";
+import About from "./pages/Home/About";
+import VendorLogin from "./pages/Auth/VendorLogin";
+import VendorRegister from "./pages/Auth/VendorRegister";
+import UserLogin from "./pages/Auth/UserLogin";
+import UserRegister from "./pages/Auth/UserRegister";
 
 
 const App = () => {

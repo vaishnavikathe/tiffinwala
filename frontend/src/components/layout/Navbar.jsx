@@ -31,13 +31,6 @@ const Navbar = () => {
 
   {/* User Auth */}
   <Link
-    to="/user-login"
-    className="text-sm hover:text-gray-200"
-  >
-    User Login
-  </Link>
-
-  <Link
     to="/user-register"
     className="btn-outline border-white text-white bg-white/10 hover:bg-white hover:text-orange-500 text-sm"
   >
@@ -54,7 +47,7 @@ const Navbar = () => {
 
   <Link
     to="/vendor-register"
-    className="text-sm underline hover:text-gray-200"
+    className="btn-outline border-white text-white bg-white/10 hover:bg-white hover:text-orange-500 text-sm"
   >
     Become a Vendor
   </Link>
