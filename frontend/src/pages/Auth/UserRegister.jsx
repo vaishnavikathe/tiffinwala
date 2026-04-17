@@ -62,6 +62,16 @@ const UserRegister = () => {
           />
 
           <Input
+            label="Address"
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            placeholder="Enter your address"
+            required
+          />
+
+          <Input
             label="Phone Number"
             type="tel"
             name="phone"

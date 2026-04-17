@@ -1,24 +1,47 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const VendorLogin = () => {
+  const [formData, setFormData] = useState({
+    identifier: "", // This will store either Email or Phone
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Vendor Login Data:", formData);
+    // Submit logic for your API goes here
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FEF9F2] px-6">
       <div className="form-card w-full max-w-md p-8 bg-white rounded-2xl shadow-xl border border-orange-100 transition-all">
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="heading text-3xl font-bold text-[#1A1208] mb-2">Vendor Login</h2>
-          <p className="text-sm text-gray-500 subheading">Welcome back! Please enter your details.</p>
+          <p className="text-sm text-gray-500 subheading">Manage your kitchen and orders.</p>
         </div>
         
-        <form className="space-y-5">
-          {/* Email Field */}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Email or Phone Field */}
           <div className="text-left">
             <label className="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">
-              Email Address
+              Email/Phone Number
             </label>
             <input 
-              type="email" 
-              placeholder="name@kitchen.com"
+              type="text" 
+              name="identifier"
+              value={formData.identifier}
+              onChange={handleChange}
+              placeholder="e.g. name@kitchen.com or 9876543210"
               className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all placeholder:text-gray-300"
               required
             />
@@ -36,6 +59,9 @@ const VendorLogin = () => {
             </div>
             <input 
               type="password" 
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               placeholder="••••••••"
               className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all placeholder:text-gray-300"
               required
@@ -43,12 +69,15 @@ const VendorLogin = () => {
           </div>
           
           {/* Submit Button */}
-          <button className="w-full py-4 bg-orange-600 text-white rounded-xl font-bold shadow-lg shadow-orange-100 hover:bg-orange-700 hover:-translate-y-0.5 transition-all active:scale-[0.98] mt-2">
+          <button 
+            type="submit"
+            className="w-full py-4 bg-orange-600 text-white rounded-xl font-bold shadow-lg shadow-orange-100 hover:bg-orange-700 hover:-translate-y-0.5 transition-all active:scale-[0.98] mt-2"
+          >
             Sign In
           </button>
         </form>
 
-        {/* Footer Link - Navigation to Register */}
+        {/* Footer Link */}
         <div className="mt-8 pt-6 border-t border-gray-100 text-center">
           <p className="text-sm text-gray-600">
             Don’t have an account?{" "}

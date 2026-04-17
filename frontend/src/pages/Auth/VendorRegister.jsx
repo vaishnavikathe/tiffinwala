@@ -57,6 +57,39 @@ const VendorRegister = () => {
           />
 
           <Input
+            label="Shop Name"
+            type="text"
+            name="shopName"
+            value={formData.shopName}
+            onChange={handleChange}
+            placeholder="Enter your shop name"
+            required
+          />
+
+          <Input
+            label="Shop Address"
+            type="text"
+            name="shopAddress"
+            value={formData.shopAddress}
+            onChange={handleChange}
+            placeholder="Enter your shop address"
+            required
+          />
+
+            
+          
+
+          <Input
+            label="Email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+            required
+          />
+
+          <Input
             label="Phone Number"
             type="tel"
             name="phone"

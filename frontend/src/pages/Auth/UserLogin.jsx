@@ -8,7 +8,7 @@ const UserLogin = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: "",
+    identifier: "", // Renamed from email to identifier to represent either Email or Phone
     password: "",
   });
 
@@ -23,11 +23,8 @@ const UserLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     console.log("User Login:", formData);
-
     // later → API call
-    // navigate("/vendors");
   };
 
   return (
@@ -40,13 +37,14 @@ const UserLogin = () => {
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
 
+          {/* Changed label and placeholder to include Phone */}
           <Input
-            label="Email"
-            type="email"
-            name="email"
-            value={formData.email}
+            label="Email/Phone"
+            type="text" // Use text instead of email to allow phone numbers
+            name="identifier"
+            value={formData.identifier}
             onChange={handleChange}
-            placeholder="Enter your email"
+            placeholder="Enter email/phone number"
             required
           />
 
@@ -71,7 +69,7 @@ const UserLogin = () => {
           Don’t have an account?{" "}
           <span
             onClick={() => navigate("/user-register")}
-            className="text-orange-500 cursor-pointer font-medium"
+            className="text-orange-500 cursor-pointer font-medium hover:underline"
           >
             Register
           </span>
