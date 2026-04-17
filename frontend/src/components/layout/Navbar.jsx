@@ -7,52 +7,56 @@ const NAV_LINKS = [
 
 const Navbar = () => {
   return (
-    <nav className="bg-gradient-to-r from-orange-500 to-red-500 text-white">
-      <div className="container-custom flex justify-between items-center py-4">
+    // Added w-screen and left-0 to ensure it pins to the very edge
+    <nav className="bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md w-screen overflow-hidden">
+      <div className="w-full flex justify-between items-center py-4 px-6 md:px-10">
         
-        {/* Logo */}
-        <h1 className="text-xl font-bold tracking-wide">
-          TiffinWala
-        </h1>
+        {/* TOP LEFT: Logo */}
+        <Link to="/" className="hover:opacity-90 transition ml-2">
+          <h1 className="text-2xl font-bold italic tracking-wider px-3 py-1 border-2 border-white rounded-tr-2xl rounded-bl-2xl">
+            TIFFIN<span className="not-italic font-light">WALA</span>
+          </h1>
+        </Link>
 
-        {/* Links */}
-        <div className="flex items-center gap-6">
-          {NAV_LINKS.map((link) => (
+        {/* TOP RIGHT: All Links and Buttons Grouped */}
+        <div className="flex items-center gap-6 mr-2">
+          
+          {/* Main Links */}
+          <div className="hidden lg:flex items-center gap-6">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                className="text-sm font-medium hover:text-orange-200 transition"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Auth/Vendor Links */}
+          <div className="flex items-center gap-4 md:gap-6">
             <Link
-              key={link.name}
-              to={link.path}
-              className="text-sm hover:text-gray-300 transition"
+              to="/vendor-login"
+              className="text-sm font-medium hover:text-orange-200 transition hidden sm:block"
             >
-              {link.name}
+              Vendor Login
             </Link>
-          ))}
 
-          <div className="flex items-center gap-4">
+            <Link
+              to="/user-register"
+              className="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-orange-600 transition text-sm font-semibold whitespace-nowrap"
+            >
+              Sign Up
+            </Link>
 
-  {/* User Auth */}
-  <Link
-    to="/user-register"
-    className="btn-outline border-white text-white bg-white/10 hover:bg-white hover:text-orange-500 text-sm"
-  >
-    Sign Up
-  </Link>
-
-  {/* Vendor Auth */}
-  <Link
-    to="/vendor-login"
-    className="text-sm hover:text-gray-200"
-  >
-    Vendor Login
-  </Link>
-
-  <Link
-    to="/vendor-register"
-    className="btn-outline border-white text-white bg-white/10 hover:bg-white hover:text-orange-500 text-sm"
-  >
-    Become a Vendor
-  </Link>
-
-</div>
+            <Link
+              to="/vendor-register"
+              className="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-orange-600 transition text-sm font-semibold whitespace-nowrap"
+            >
+              Join as Vendor
+            </Link>
+          </div>
         </div>
       </div>
     </nav>

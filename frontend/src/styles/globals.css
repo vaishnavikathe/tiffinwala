@@ -9,6 +9,8 @@
 ========================= */
 
 
+
+
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--bg);
@@ -16,6 +18,8 @@ body {
   margin: 0;
   padding: 0;
 }
+
+
 
 /* Smooth rendering */
 * {
@@ -50,6 +54,7 @@ body {
   @apply text-white px-7 py-3 rounded-[10px] text-[15px] font-medium transition;
   background: var(--orange);
   box-shadow: 0 4px 12px rgba(232, 99, 10, 0.2);
+  overflow-x: hidden;
 }
 
 .btn-primary:hover {

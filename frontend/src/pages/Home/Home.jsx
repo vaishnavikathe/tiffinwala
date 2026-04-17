@@ -1,33 +1,35 @@
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="min-h-screen bg-[#FEF9F2]"> {/* Use the soft cream background for the whole page */}
 
-      {/* HERO SECTION */}
-      <section className="bg-gradient-to-r from-orange-500 to-red-500 text-white section">
-        <div className="container-custom text-center">
-          <h1 className="heading text-white">
-            Fresh Homemade Meals Delivered Daily
+      {/* HERO SECTION - Now blends downward */}
+      <section className="relative pt-20 pb-32 px-6 full bg-gradient-to-b from-orange-500 to-red-500">
+        <div className="max-w-[1400px] mx-auto text-center">
+          
+          
+          <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
+            Fresh Homemade Meals <br /> Delivered Daily
           </h1>
-          <p className="subheading text-gray-300">
+          
+          <p className="text-lg md:text-xl text-orange-50 mb-10 max-w-2xl mx-auto">
             Subscribe to healthy, affordable, and hygienic tiffin services near you.
           </p>
 
-          <div className="mt-6 flex justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button
               onClick={() => navigate("/user-login")}
-              className="btn-primary"
+              className="px-10 py-4 bg-white text-orange-600 font-bold rounded-xl shadow-lg hover:bg-orange-50 transition-all transform hover:-translate-y-1"
             >
               Get Started
             </button>
 
             <button
               onClick={() => navigate("/vendors")}
-              className="btn-outline border-white text-black hover:bg-white hover:text-orange-500"
+              className="px-10 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all transform hover:-translate-y-1"
             >
               Explore Vendors
             </button>
@@ -35,78 +37,35 @@ const Home = () => {
         </div>
       </section>
 
-      {/* FEATURES SECTION */}
-      <section className="section">
-        <div className="container-custom text-center">
-          <h2 className="heading">
-            Why Choose TiffinWala?
-          </h2>
-          <p className="subheading">
-            Everything you need in one place
-          </p>
+      {/* FEATURES SECTION - No more "white block" feel */}
+      <section className="py-24 px-6">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-2">Why Choose TiffinWala?</h2>
+            <div className="h-1.5 w-24 bg-orange-500 mx-auto rounded-full"></div>
+            <p className="text-gray-500 mt-4 text-lg">Everything you need in one place</p>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-10 mt-10">
-            <div className="card">
-              <h3 className="font-semibold text-lg">🥕 Healthy & Balanced</h3>
-              <p className="text-gray-600 mt-2">
-                Nutritionally balanced menus with options for vegetarian, Jain, and special diet requirements.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+             {/* Use your cards here - with a subtle border and shadow */}
+             {[
+              { icon: "🥕", title: "Healthy & Balanced", desc: "Nutritiously balanced menus for all diet requirements." },
+              { icon: "🔄", title: "Flexible Plans", desc: "Customize your meal subscriptions as per your needs." },
+              { icon: "⏱️", title: "Reliable Delivery", desc: "Meals delivered hot and on time. Track in real time." },
+              { icon: "🏠", title: "Fresh Daily Tiffins", desc: "Hygienic, home-like meals prepared fresh every morning by verified vendors in your area." },
+              { icon: "✅", title: "Verified Vendors", desc: " Every vendor on our platform is background-checked and food-safety certified before listing." },
+              { icon: "💰", title: "Affordable Plans", desc: "Monthly, weekly, and daily subscriptions starting at just ₹60 per meal. No hidden charges." },
 
-            <div className="card">
-              <h3 className="font-semibold text-lg">🔄 Flexible Plans</h3>
-              <p className="text-gray-600 mt-2">
-                Customize your meal subscriptions as per your needs.
-              </p>
-            </div>
-
-            <div className="card">
-              <h3 className="font-semibold text-lg">⏱️ Reliable Delivery</h3>
-              <p className="text-gray-600 mt-2">
-                Meals delivered hot and on time. Track your tiffin delivery in real time with ease.
-              </p>
-            </div>
-            <div className="card">
-              <h3 className="font-semibold text-lg">🍱 Fresh Daily Tiffins</h3>
-              <p className="text-gray-600 mt-2">
-                Hygienic, home-like meals prepared fresh every morning by verified vendors in your area.
-              </p>
-            </div>
-            <div className="card">
-              <h3 className="font-semibold text-lg">✅ Verified Vendors</h3>
-              <p className="text-gray-600 mt-2">
-                Every vendor on our platform is background-checked and food-safety certified before listing.
-              </p>
-            </div>
-            <div className="card">
-              <h3 className="font-semibold text-lg">💰Affordable Plans</h3>
-              <p className="text-gray-600 mt-2">
-                Monthly, weekly, and daily subscriptions starting at just ₹60 per meal. No hidden charges.
-              </p>
-            </div>
+            ].map((feature, idx) => (
+              <div key={idx} className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-orange-100 shadow-sm hover:shadow-md transition-all">
+                <div className="text-3xl mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-
-      {/* CTA SECTION */}
-      <section className="section">
-        <div className="container-custom text-center">
-          <h2 className="heading">
-            Ready to Start Your Meal Plan?
-          </h2>
-          <p className="subheading">
-            Join hundreds of users enjoying hassle-free meals daily.
-          </p>
-
-          <button
-            onClick={() => navigate("/vendors")}
-            className="btn-primary mt-6"
-          >
-            Browse Vendors
-          </button>
-        </div>
-      </section>
-
     </div>
   );
 };
