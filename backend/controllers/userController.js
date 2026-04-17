@@ -47,8 +47,8 @@ export const loginUser = async (req, res) => {
 //email
 
 if(email){
-      const vendor = await User.findOne({ email });
-    if (!vendor) {
+      const user = await User.findOne({ email });
+    if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
 
