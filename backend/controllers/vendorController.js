@@ -4,9 +4,14 @@ import jwt from "jsonwebtoken";
 
 export const registerVendor= async (req,res)=>{
   try{
-    const{ownerName,address,mobile,password,cuisine,shopName} = req.body;
+    const{ownerName,address,mobile,password,cuisine,shopName,email} = req.body;
 
-    const existing = await Vendor.findOne({ mobile });
+    const existing = await Vendor.findOne({ 
+      $or: [
+      { mobile: mobile },
+      { email: email }
+    ]
+     });
         if (existing) {
 
         return res.status(400).json({
@@ -22,7 +27,8 @@ export const registerVendor= async (req,res)=>{
     mobile,
     password: hashedPassword,
     cuisine,
-    shopName
+    shopName,
+    email
   });
   
   res.status(201).json({
@@ -39,8 +45,29 @@ export const registerVendor= async (req,res)=>{
 //login
 export const loginVendor= async (req,res)=>{
   try{
-    const{mobile,password} =req.body;
+    const{mobile,email,password} =req.body;
+  
+  //email
+    if(email){
+      const vendor = await Vendor.findOne({ email });
+    if (!vendor) {
+      return res.status(401).json({ message: "Vendor not found" });
+    }
 
+    const isMatch = await bcrypt.compare(password, vendor.password); 
+
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid Password" });
+    }
+    const token = jwt.sign(
+          { id: vendor._id, role: "vendor" },
+          process.env.JWT_SECRET,
+          { expiresIn: "7d" }
+        );
+    res.json({ message: "Login Successfully", token });
+    }
+
+    //mobile
     const vendor = await Vendor.findOne({ mobile });
     if (!vendor) {
       return res.status(401).json({ message: "Vendor not found" });
