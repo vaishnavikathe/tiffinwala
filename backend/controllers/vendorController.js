@@ -21,7 +21,7 @@ export const registerVendor= async (req,res)=>{
 
   const hashedPassword = await bcrypt.hash(password, 10);
    
-  const vendor =Vendor.create({
+  const vendor =await Vendor.create({
     ownerName,
     address,
     mobile,
@@ -43,48 +43,53 @@ export const registerVendor= async (req,res)=>{
 
 
 //login
-export const loginVendor= async (req,res)=>{
-  try{
-    const{mobile,email,password} =req.body;
-  
-  //email
-    if(email){
-      const vendor = await Vendor.findOne({ email });
-    if (!vendor) {
-      return res.status(401).json({ message: "Vendor not found" });
+export const loginVendor = async (req, res) => {
+  try {
+    const { mobile, email, password } = req.body;
+
+    // dynamic query
+    let query = {};
+
+    if (email) {
+      query.email = email;
+    } else if (mobile) {
+      query.mobile = mobile;
+    } else {
+      return res.status(400).json({
+        message: "Email or Mobile required"
+      });
     }
 
-    const isMatch = await bcrypt.compare(password, vendor.password); 
+    const vendor = await Vendor.findOne(query);
+
+    if (!vendor) {
+      return res.status(401).json({
+        message: "Vendor not found"
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, vendor.password);
 
     if (!isMatch) {
-      return res.status(401).json({ message: "Invalid Password" });
+      return res.status(401).json({
+        message: "Invalid Password"
+      });
     }
+
     const token = jwt.sign(
-          { id: vendor._id, role: "vendor" },
-          process.env.JWT_SECRET,
-          { expiresIn: "7d" }
-        );
-    res.json({ message: "Login Successfully", token });
-    }
+      { id: vendor._id, role: "vendor" },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
 
-    //mobile
-    const vendor = await Vendor.findOne({ mobile });
-    if (!vendor) {
-      return res.status(401).json({ message: "Vendor not found" });
-    }
-
-    const isMatch = await bcrypt.compare(password, vendor.password); 
-
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid Password" });
-    }
-
-     const token = jwt.sign(
-          { id: vendor._id, role: "vendor" },
-          process.env.JWT_SECRET,
-          { expiresIn: "7d" }
-        );
-    res.json({ message: "Login Successfully", token });
+    return res.json({
+      message: "Login Successfully",
+      token,
+      vendor: {
+        ownerName: vendor.ownerName,
+        shopName: vendor.shopName
+      }
+    });
 
   } catch (error) {
     res.status(500).json({ error: error.message });

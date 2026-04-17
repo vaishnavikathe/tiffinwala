@@ -42,41 +42,35 @@ export const registerUser = async (req, res) => {
 // LOGIN USER
 export const loginUser = async (req, res) => {
   try {
-    const { mobile, password, email} = req.body;
+    const { mobile, email, password } = req.body;
 
-//email
+    // 🔥 dynamic query
+    let query = {};
 
-if(email){
-      const user = await User.findOne({ email });
+    if (email) {
+      query.email = email;
+    } else if (mobile) {
+      query.mobile = mobile;
+    } else {
+      return res.status(400).json({
+        message: "Email or Mobile required"
+      });
+    }
+
+    const user = await User.findOne(query);
+
     if (!user) {
-      return res.status(401).json({ message: "User not found" });
+      return res.status(401).json({
+        message: "User not found"
+      });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password); 
-
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid Password" });
-    }
-    const token = jwt.sign(
-          { id: user._id, role: "user" },
-          process.env.JWT_SECRET,
-          { expiresIn: "7d" }
-        );
-    res.json({ message: "Login Successfully", token });
-    }
-
-//mobile
-    const user = await User.findOne({ mobile });
-    if (!user) {
-      return res.status(401).json({ message: "User not found" });
-    }
-
-    // ✅ FIX: add await
     const isMatch = await bcrypt.compare(password, user.password);
 
-    // ✅ FIX: correct variable name
     if (!isMatch) {
-      return res.status(401).json({ message: "Invalid Password" });
+      return res.status(401).json({
+        message: "Invalid Password"
+      });
     }
 
     const token = jwt.sign(
@@ -85,7 +79,13 @@ if(email){
       { expiresIn: "7d" }
     );
 
-    res.json({ message: "Login Successfully", token });
+    return res.json({
+      message: "Login Successfully",
+      token,
+      user: {
+        name: user.name
+      }
+    });
 
   } catch (error) {
     res.status(500).json({ error: error.message });
