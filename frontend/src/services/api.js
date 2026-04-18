@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Base API instance
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: "http://localhost:5000/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -14,8 +14,17 @@ const API = axios.create({
 
 export const loginUser = async (data) => {
   try {
-    const response = await API.post("/user/login", data); // ✅ FIXED
+
+    // detect email or mobile
+    const payload =
+      data.identifier.includes("@")
+        ? { email: data.identifier, password: data.password }
+        : { mobile: data.identifier, password: data.password };
+
+    const response = await API.post("/user/login", payload);
+
     return response.data;
+
   } catch (error) {
     throw error.response?.data || { message: "User login failed" };
   }
@@ -23,10 +32,28 @@ export const loginUser = async (data) => {
 
 export const registerUser = async (data) => {
   try {
-    const response = await API.post("/user/register", data); // ✅ FIXED
+
+    const payload = {
+      name: data.name,
+      email: data.email,
+      address: data.address,
+      mobile: data.phone,  
+      password: data.password
+    };
+
+    const response = await API.post(
+      "/user/register",
+      payload
+    );
+
     return response.data;
+
   } catch (error) {
-    throw error.response?.data || { message: "User registration failed" };
+
+    throw error.response?.data || {
+      message: "User registration failed"
+    };
+
   }
 };
 
@@ -36,8 +63,16 @@ export const registerUser = async (data) => {
 
 export const loginVendor = async (data) => {
   try {
-    const response = await API.post("/vendor/login", data); // ✅ FIXED
+
+    const payload =
+      data.identifier.includes("@")
+        ? { email: data.identifier, password: data.password }
+        : { mobile: data.identifier, password: data.password };
+
+    const response = await API.post("/vendor/login", payload);
+
     return response.data;
+
   } catch (error) {
     throw error.response?.data || { message: "Vendor login failed" };
   }
@@ -45,10 +80,30 @@ export const loginVendor = async (data) => {
 
 export const registerVendor = async (data) => {
   try {
-    const response = await API.post("/vendor/register", data); // ✅ FIXED
+
+    const payload = {
+      ownerName: data.name,
+      email: data.email,
+      mobile: data.phone,
+      password: data.password,
+      cuisine: data.cuisine,
+      shopName: data.shopName,
+      address: data.shopAddress
+    };
+
+    const response = await API.post(
+      "/vendor/register",
+      payload
+    );
+
     return response.data;
+
   } catch (error) {
-    throw error.response?.data || { message: "Vendor registration failed" };
+
+    throw error.response?.data || {
+      message: "Vendor registration failed"
+    };
+
   }
 };
 

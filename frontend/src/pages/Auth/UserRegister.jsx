@@ -13,8 +13,12 @@ const UserRegister = () => {
     email: "",
     phone: "",
     password: "",
-    address: "", 
+    address: "",
   });
+
+  // ✅ ADD THESE
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,31 +30,31 @@ const UserRegister = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  setLoading(true);
-  setError("");
+    setLoading(true);
+    setError("");
 
-  try {
-    const res = await registerUser(formData);
+    try {
+      const res = await registerUser(formData);
 
-    console.log("Register success:", res);
+      console.log("Register success:", res);
 
-    navigate("/login");
+      navigate("/user-login");
 
-  } catch (err) {
-    setError(err.message || "Registration failed");
-  } finally {
-    setLoading(false);
-  }
-};
+    } catch (err) {
+      setError(err.message || "Registration failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="section flex justify-center items-center">
       <Card className="w-full max-w-md">
 
         <h2 className="text-3xl font-bold text-[#1A1208] mb-2 text-center">
-            User Register
+          User Register
         </h2>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
@@ -75,22 +79,22 @@ const UserRegister = () => {
           />
 
           <div>
-  <label className="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">
-    Address
-  </label>
+            <label className="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">
+              Address
+            </label>
 
-  <textarea
-    name="address"
-    value={formData.address}
-    onChange={handleChange}
-    placeholder="Enter your address"
-    rows={3}
-    className="w-full px-4 py-3 rounded-xl border border-gray-200 
-               focus:border-orange-500 focus:ring-2 focus:ring-orange-200 
-               outline-none transition-all resize-none"
-    required
-  />
-</div>
+            <textarea
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              placeholder="Enter your address"
+              rows={3}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200
+                         focus:border-orange-500 focus:ring-2 focus:ring-orange-200
+                         outline-none transition-all resize-none"
+              required
+            />
+          </div>
 
           <Input
             label="Phone Number"
@@ -112,13 +116,23 @@ const UserRegister = () => {
             required
           />
 
-          <Button type="submit" className="w-full mt-4">
-            Register
+          {/* ✅ Show Error */}
+          {error && (
+            <p className="text-red-500 text-sm text-center">
+              {error}
+            </p>
+          )}
+
+          <Button
+            type="submit"
+            className="w-full mt-4"
+            disabled={loading}
+          >
+            {loading ? "Registering..." : "Register"}
           </Button>
 
         </form>
 
-        {/* Redirect */}
         <p className="text-sm text-center mt-4 text-gray-600">
           Already have an account?{" "}
           <span
