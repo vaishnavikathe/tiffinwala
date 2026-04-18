@@ -1,7 +1,7 @@
 import Vendor from "../models/vendor.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import Menu from "../models/Menu.js";
+import Menu from "../models/menu.js";
 
 export const registerVendor= async (req,res)=>{
   try{
