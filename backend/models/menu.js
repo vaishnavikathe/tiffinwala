@@ -1,24 +1,33 @@
 import mongoose from "mongoose";
 
-const menuSchema= new mongoose.Schema({
-
-    vendorId: {
+const dayMenuSchema = new mongoose.Schema({
+  lunch: {
+    type: [String],
+    default: []
+  },
+  dinner: {
+    type: [String],
+    default: []
+  }
+}, { _id: false });
+const menuSchema = new mongoose.Schema({
+  vendorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Vendor",
-    required: true
+    required: true,
+    unique: true   // one menu per vendor
   },
-    day:{
-        type:String,
-        required:true
-    },
-    lunch:{
-        type:String,
-        default:[],
-    },
-    dinner:{
-        type:String,
-        default:[],
-    }
+
+  weekMenu: {
+    Monday: dayMenuSchema,
+    Tuesday: dayMenuSchema,
+    Wednesday: dayMenuSchema,
+    Thursday: dayMenuSchema,
+    Friday: dayMenuSchema,
+    Saturday: dayMenuSchema,
+    Sunday: dayMenuSchema
+  }
+
 },{timestamps : true});
 
 export default mongoose.model('menu',menuSchema);
