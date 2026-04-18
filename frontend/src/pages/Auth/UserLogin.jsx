@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
+import { loginUser } from "../../services/api";
 
 const UserLogin = () => {
   const navigate = useNavigate();
@@ -15,15 +16,6 @@ const UserLogin = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // ---------------- VALIDATION ----------------
-  const isEmail = (value) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  };
-
-  const isMobile = (value) => {
-    return /^[6-9]\d{9}$/.test(value); // Indian numbers
-  };
-
   // ---------------- HANDLE INPUT ----------------
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,55 +25,27 @@ const UserLogin = () => {
       [name]: value,
     }));
 
-    setError(""); // clear error while typing
+    setError("");
   };
 
   // ---------------- HANDLE SUBMIT ----------------
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { identifier, password } = formData;
-
-    // Validation
-    if (!isEmail(identifier) && !isMobile(identifier)) {
-      setError("Enter a valid email or 10-digit mobile number");
-      return;
-    }
-
-    if (!password || password.length < 6) {
-      setError("Password must be at least 6 characters");
-      return;
-    }
-
-    // Prepare payload
-    let payload = {
-      password,
-    };
-
-    if (isEmail(identifier)) {
-      payload.email = identifier;
-    } else {
-      payload.mobile = identifier;
-    }
+    setLoading(true);
+    setError("");
 
     try {
-      setLoading(true);
+      const res = await loginUser(formData);
 
-      console.log("User Login Payload:", payload);
+      console.log("Login success:", res);
 
-      // 👉 Replace with actual API call
-      // const res = await axios.post("/api/user/login", payload);
-
-      // Simulated success
-      setTimeout(() => {
-        setLoading(false);
-        console.log("Login successful");
-        navigate("/dashboard"); // redirect after login
-      }, 1000);
+      navigate("/dashboard");
 
     } catch (err) {
+      setError(err.message || "Login failed");
+    } finally {
       setLoading(false);
-      setError("Login failed. Please check credentials.");
     }
   };
 
@@ -89,26 +53,23 @@ const UserLogin = () => {
     <div className="section flex justify-center items-center">
       <Card className="w-full max-w-md">
 
-        <h2 className="text-3xl font-bold text-[#1A1208] mb-2 text-center">
+        <h2 className="text-3xl font-bold text-center mb-4">
           User Login
         </h2>
 
-        {/* Error Message */}
         {error && (
-          <div className="mt-4 text-sm text-red-600 bg-red-50 px-4 py-2 rounded-lg">
+          <div className="text-red-600 bg-red-50 p-2 rounded">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
 
           <Input
-            label="Email/Mobile Number"
-            type="text"
+            label="Email/Mobile"
             name="identifier"
             value={formData.identifier}
             onChange={handleChange}
-            placeholder="Enter email or 10-digit mobile number"
             required
           />
 
@@ -118,27 +79,20 @@ const UserLogin = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Enter your password"
             required
           />
 
-          <Button
-            type="submit"
-            className={`w-full mt-4 ${loading ? "opacity-60 cursor-not-allowed" : ""
-              }`}
-            disabled={loading}
-          >
+          <Button type="submit" disabled={loading} className="w-full">
             {loading ? "Logging in..." : "Login"}
           </Button>
 
         </form>
 
-        {/* Redirect */}
-        <p className="text-sm text-center mt-4 text-gray-600">
+        <p className="text-center mt-4">
           Don’t have an account?{" "}
           <span
             onClick={() => navigate("/user-register")}
-            className="text-orange-500 cursor-pointer font-medium hover:underline"
+            className="text-orange-500 cursor-pointer"
           >
             Register
           </span>

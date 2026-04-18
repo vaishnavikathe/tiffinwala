@@ -2,31 +2,53 @@ import axios from "axios";
 
 // Base API instance
 const API = axios.create({
-  baseURL: "http://localhost:5000/api", // change if needed
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 // =========================
-// AUTH APIs
+// USER APIs
+// =========================
+
+export const loginUser = async (data) => {
+  try {
+    const response = await API.post("/user/login", data); // ✅ FIXED
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: "User login failed" };
+  }
+};
+
+export const registerUser = async (data) => {
+  try {
+    const response = await API.post("/user/register", data); // ✅ FIXED
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: "User registration failed" };
+  }
+};
+
+// =========================
+// VENDOR APIs
 // =========================
 
 export const loginVendor = async (data) => {
   try {
-    const response = await API.post("/vendors/login", data);
+    const response = await API.post("/vendor/login", data); // ✅ FIXED
     return response.data;
   } catch (error) {
-    throw error.response?.data || { message: "Login failed" };
+    throw error.response?.data || { message: "Vendor login failed" };
   }
 };
 
 export const registerVendor = async (data) => {
   try {
-    const response = await API.post("/vendors/register", data);
+    const response = await API.post("/vendor/register", data); // ✅ FIXED
     return response.data;
   } catch (error) {
-    throw error.response?.data || { message: "Registration failed" };
+    throw error.response?.data || { message: "Vendor registration failed" };
   }
 };
 

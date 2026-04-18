@@ -2,6 +2,7 @@ import { useState } from "react";
 import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
+import { registerVendor } from "../../services/api";
 
 const VendorRegister = () => {
   const [formData, setFormData] = useState({
@@ -23,11 +24,25 @@ const VendorRegister = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    console.log("Register Data:", formData);
-  };
+  setLoading(true);
+  setError("");
+
+  try {
+    const res = await registerVendor(formData);
+
+    console.log("Vendor registered:", res);
+
+    navigate("/vendor/login");
+
+  } catch (err) {
+    setError(err.message || "Registration failed");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="section flex justify-center items-center">

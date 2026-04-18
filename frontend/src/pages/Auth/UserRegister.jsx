@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
+import { registerUser } from "../../services/api";
 
 const UserRegister = () => {
   const navigate = useNavigate();
@@ -24,14 +25,25 @@ const UserRegister = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    console.log("User Register:", formData);
+  setLoading(true);
+  setError("");
 
-    // later → API call
-    // navigate("/vendors");
-  };
+  try {
+    const res = await registerUser(formData);
+
+    console.log("Register success:", res);
+
+    navigate("/login");
+
+  } catch (err) {
+    setError(err.message || "Registration failed");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="section flex justify-center items-center">
