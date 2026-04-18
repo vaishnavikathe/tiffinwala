@@ -1,6 +1,7 @@
 import Vendor from "../models/vendor.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import Menu from "../models/Menu.js";
 
 export const registerVendor= async (req,res)=>{
   try{
@@ -89,6 +90,35 @@ export const loginVendor = async (req, res) => {
         ownerName: vendor.ownerName,
         shopName: vendor.shopName
       }
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+//Menu handler 
+export const addMenu = async (req, res) => {
+  try {
+    const { vendorId, weekMenu } = req.body;
+
+    // check if already exists
+    const existing = await Menu.findOne({ vendorId });
+
+    if (existing) {
+      return res.status(400).json({
+        message: "Menu already exists, use update API"
+      });
+    }
+
+    const menu = await Menu.create({
+      vendorId,
+      weekMenu
+    });
+
+    return res.json({
+      message: "Weekly menu created",
+      menu
     });
 
   } catch (error) {
