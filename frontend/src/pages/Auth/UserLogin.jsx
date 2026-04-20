@@ -38,6 +38,12 @@ const UserLogin = () => {
 
     try {
       const res = await loginUser(formData);
+<<<<<<< HEAD
+=======
+
+      localStorage.setItem("token", res.token);
+
+>>>>>>> c4368453dc01ac77a7c685068792f40e0281e59c
       console.log("Login success:", res);
       navigate("/dashboard");
     } catch (err) {
