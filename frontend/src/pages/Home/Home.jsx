@@ -1,3 +1,4 @@
+import Footer from "../../components/layout/Footer";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -65,7 +66,9 @@ const Home = () => {
             ))}
           </div>
         </div>
+        
       </section>
+      <Footer />
     </div>
   );
 };
