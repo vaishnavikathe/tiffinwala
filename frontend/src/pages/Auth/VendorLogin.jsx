@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginVendor } from "../../services/api";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"; // 👈 added
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"; 
 
 const VendorLogin = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const VendorLogin = () => {
     password: "",
   });
 
-  const [showPassword, setShowPassword] = useState(false); // 👈 added
+  const [showPassword, setShowPassword] = useState(false); 
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);

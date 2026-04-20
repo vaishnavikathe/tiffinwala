@@ -36,7 +36,7 @@ const Navbar = () => {
           {/* Auth/Vendor Links - "Vendor Login" removed for a cleaner look */}
           <div className="flex items-center gap-4 md:gap-6">
             <Link
-              to="/user-register"
+              to="/user-login"
               className="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-orange-600 transition text-sm font-semibold whitespace-nowrap"
             >
               Sign Up
