@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState } from "react"; 
 import { useNavigate } from "react-router-dom";
 import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import { registerVendor } from "../../services/api";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import toast from "react-hot-toast"; 
 
 const VendorRegister = () => {
   
@@ -19,6 +21,7 @@ const VendorRegister = () => {
     shopAddress: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -33,29 +36,45 @@ const VendorRegister = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  setLoading(true);
-  setError("");
+    setLoading(true);
+    setError("");
 
-  try {
-    const res = await registerVendor(formData);
+    try {
+      const res = await registerVendor(formData);
 
-    console.log("Vendor registered:", res);
+      console.log("Vendor registered:", res);
 
-    navigate("/vendor/login");
+      // ✅ SUCCESS TOAST
+      toast.success("Vendor Registered Successfully!", {
+        duration: 3000,
+        position: "top-right",
+        style: {
+          background: "#fff7ed",
+          color: "#c2410c",
+          border: "1px solid #fdba74",
+        },
+      });
 
-  } catch (err) {
-    setError(err.message || "Registration failed");
-  } finally {
-    setLoading(false);
-  }
-};
+      navigate("/vendor/login");
+
+    } catch (err) {
+      setError(err.message || "Registration failed");
+
+      // ❌ ERROR TOAST
+      toast.error("Registration failed!", {
+        duration: 3000,
+        position: "top-right",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="section flex justify-center items-center">
       <Card className="w-full max-w-md">
-
 
         <h2 className="text-3xl font-bold text-[#1A1208] mb-2 text-center">
           Vendor Registration
@@ -120,15 +139,30 @@ const VendorRegister = () => {
             required
           />
 
-          <Input
-            label="Password"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Create a password"
-            required
-          />
+          {/* Password */}
+          <div className="relative">
+            <Input
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Create a password"
+              required
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-9"
+            >
+              {showPassword ? (
+                <EyeSlashIcon className="h-5 w-5 text-gray-600" />
+              ) : (
+                <EyeIcon className="h-5 w-5 text-gray-600" />
+              )}
+            </button>
+          </div>
 
           <div>
             <label className="text-sm font-medium">

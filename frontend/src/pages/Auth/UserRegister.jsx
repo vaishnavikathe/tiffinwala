@@ -4,6 +4,8 @@ import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import { registerUser } from "../../services/api";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import toast from "react-hot-toast";
 
 const UserRegister = () => {
   const navigate = useNavigate();
@@ -16,7 +18,8 @@ const UserRegister = () => {
     address: "",
   });
 
-  // ✅ ADD THESE
+  const [showPassword, setShowPassword] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -37,13 +40,29 @@ const UserRegister = () => {
 
     try {
       const res = await registerUser(formData);
-
       console.log("Register success:", res);
+
+      // ✅ SUCCESS TOAST (Styled)
+      toast.success("User Registered Successfully!", {
+        duration: 3000,
+        position: "top-right",
+        style: {
+          background: "#fff7ed",   // light orange
+          color: "#c2410c",        // dark orange text
+          border: "1px solid #fdba74",
+        },
+      });
 
       navigate("/user-login");
 
     } catch (err) {
       setError(err.message || "Registration failed");
+
+      // ❌ ERROR TOAST
+      toast.error("Registration failed!", {
+        duration: 3000,
+        position: "top-right",
+      });
     } finally {
       setLoading(false);
     }
@@ -106,17 +125,31 @@ const UserRegister = () => {
             required
           />
 
-          <Input
-            label="Password"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Create a password"
-            required
-          />
+          {/* Password */}
+          <div className="relative">
+            <Input
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Create a password"
+              required
+            />
 
-          {/* ✅ Show Error */}
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-9"
+            >
+              {showPassword ? (
+                <EyeSlashIcon className="h-5 w-5 text-gray-600" />
+              ) : (
+                <EyeIcon className="h-5 w-5 text-gray-600" />
+              )}
+            </button>
+          </div>
+
           {error && (
             <p className="text-red-500 text-sm text-center">
               {error}
