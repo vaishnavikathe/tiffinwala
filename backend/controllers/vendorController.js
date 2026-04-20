@@ -2,6 +2,7 @@ import Vendor from "../models/vendor.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Menu from "../models/menu.js";
+import Plan from "../models/plan.js";
 
 export const registerVendor= async (req,res)=>{
   try{
@@ -123,5 +124,60 @@ export const addMenu = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+//GET ALL VENDORS (for user dashboard)
+export const getAllVendors = async (req, res) => {
+  try {
+    const vendors = await Vendor.find().select(
+      "ownerName shopName cuisine address"
+    );
+
+    return res.json({
+      message: "Vendors fetched successfully",
+      vendors
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message
+    });
+  }
+};
+
+//GET SINGLE VENDOR DETAILS (IMPORTANT)
+export const getVendorDetails = async (req, res) => {
+  try {
+    const vendorId = req.params.id;
+
+    // vendor basic info
+    const vendor = await Vendor.findById(vendorId).select(
+      "ownerName shopName cuisine address"
+    );
+
+    if (!vendor) {
+      return res.status(404).json({
+        message: "Vendor not found"
+      });
+    }
+
+    // menu (7 days)
+    const menu = await Menu.findOne({ vendorId });
+
+    // plans (prepaid + postpaid)
+    const plan = await Plan.findOne({ vendorId });
+
+    return res.json({
+      message: "Vendor details fetched",
+      vendor,
+      menu,
+      plan
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message
+    });
   }
 };
