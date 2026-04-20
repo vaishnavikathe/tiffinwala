@@ -34,7 +34,7 @@ const App = () => {
         <Route path="/user-register" element={<UserRegister />} />
 
         {/* Vendor Protected Routes */}
-        <Route element={<ProtectedRoute role="vendor" />}>
+        <Route element={<ProtectedRoute />}>
           <Route path="/vendor/dashboard" element={<Dashboard />} />
           <Route path="/vendor/add-plan" element={<AddMealPlan />} />
           <Route path="/vendor/edit-plan/:id" element={<EditMealPlan />} />
