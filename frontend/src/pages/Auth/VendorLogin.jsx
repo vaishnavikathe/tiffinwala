@@ -35,6 +35,8 @@ const VendorLogin = () => {
     try {
       const res = await loginVendor(formData);
 
+      localStorage.setItem("token", res.token);
+
       console.log("Vendor login:", res);
 
       navigate("/vendor/dashboard");

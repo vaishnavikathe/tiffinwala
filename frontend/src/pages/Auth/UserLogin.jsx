@@ -38,6 +38,8 @@ const UserLogin = () => {
     try {
       const res = await loginUser(formData);
 
+      localStorage.setItem("token", res.token);
+
       console.log("Login success:", res);
 
       navigate("/dashboard");
