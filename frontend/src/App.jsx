@@ -17,7 +17,7 @@ import Contact from "./pages/Home/Contact";
 // Protected and Vendor Pages
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./pages/vendor/Dashboard";
-import AddMealPlan from "./pages/vendor/AddMealPlan";
+import AddMealPlan from "./pages/vendor/PlanManagement";
 import EditMealPlan from "./pages/vendor/EditMealPlan";
 import AddMenu from "./pages/vendor/AddMenu";
 import Users from "./pages/vendor/Users";
