@@ -186,7 +186,7 @@ export const getVendorDetails = async (req, res) => {
 export const updateVendorProfile = async (req,res) =>{
   try {
     const vendorId = req.vendorId;
-    const { name, email, phone, shopName, address, password } = req.body;
+    const { name, email, mobile, shopName, address, password } = req.body;
 
     const vendor = await Vendor.findById(vendorId);
 

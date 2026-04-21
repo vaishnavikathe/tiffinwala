@@ -107,7 +107,7 @@ export const updateUserProfile = async (req, res) =>{
       password
     }=req.body;
 
-    const user = await User.findById(user);
+    const user = await User.findById(userId);
 
     if(!user){
       return res.status(404).json({
@@ -115,7 +115,7 @@ export const updateUserProfile = async (req, res) =>{
       });
     }
 
-    const isMatch = bcrypt.compare(
+    const isMatch = await bcrypt.compare(
       password,
     user.password
   );
@@ -132,7 +132,7 @@ export const updateUserProfile = async (req, res) =>{
 
    await user.save();
 
-   res,json({
+   res.json({
     message:"profile Updates Successfully!!",
     user
    });
@@ -170,7 +170,7 @@ try{
     }
     const salt = await bcrypt.genSalt(10);
 
-    user.password=bcrypt.compare(
+    user.password= await bcrypt.hash(
       newPassword,
       salt
     );
