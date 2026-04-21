@@ -126,16 +126,30 @@ export const addMenu = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-//GET ALL VENDORS (for user dashboard)
+// get vendors for user dashboard
 export const getAllVendors = async (req, res) => {
   try {
-    const vendors = await Vendor.find().select(
-      "ownerName shopName cuisine address"
-    );
+    // ✅ query params
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const skip = (page - 1) * limit;
+
+    // ✅ total count
+    const total = await Vendor.countDocuments();
+
+    // ✅ paginated data
+    const vendors = await Vendor.find()
+      .select("ownerName shopName cuisine address")
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 });
 
     return res.json({
       message: "Vendors fetched successfully",
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
       vendors
     });
 
