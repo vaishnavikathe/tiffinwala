@@ -13,10 +13,9 @@ import {
 const Sidebar = ({ isOpen, toggle }) => {
   const navigate = useNavigate();
 
-
   const menuItems = [
     { name: "Dashboard", path: "/vendor/dashboard", icon: <FiHome /> },
-    { name: "Add Plan", path: "/vendor/add-plan", icon: <FiPlusCircle /> },
+    { name: "Plan Management", path: "/vendor/add-plan", icon: <FiPlusCircle /> },
     { name: "Update Plan", path: "/vendor/update-plan", icon: <FiEdit /> },
     { name: "Add Menu", path: "/vendor/add-menu", icon: <FiMenu /> },
     { name: "Users", path: "/vendor/users", icon: <FiUsers /> },
@@ -30,7 +29,7 @@ const Sidebar = ({ isOpen, toggle }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("../vendor-login");
+    navigate("/vendor-login");
   };
 
   return (
@@ -39,7 +38,7 @@ const Sidebar = ({ isOpen, toggle }) => {
       ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
     >
 
-      {/* Close Button */}
+      {/* Close button */}
       <button
         onClick={toggle}
         className="text-white text-2xl mb-4"
@@ -47,30 +46,28 @@ const Sidebar = ({ isOpen, toggle }) => {
         <FiX />
       </button>
 
-      {/* Top Section */}
-      <div>
-        <h2 className="text-xl font-bold mb-8 tracking-wide">
-          TiffinWala
-        </h2>
+      {/* Menu */}
+      <h2 className="text-xl font-bold mb-8 tracking-wide">
+        TiffinWala
+      </h2>
 
-        <nav className="flex flex-col gap-2">
-          {menuItems.map((item) => (
-            <NavLink
-              key={item.name}
-              to={item.path}
-              onClick={toggle}
-              className={({ isActive }) =>
-                `${baseClass} ${isActive ? activeClass : inactiveClass}`
-              }
-            >
-              {item.icon}
-              <span>{item.name}</span>
-            </NavLink>
-          ))}
-        </nav>
-      </div>
+      <nav className="flex flex-col gap-2">
+        {menuItems.map((item) => (
+          <NavLink
+            key={item.name}
+            to={item.path}
+            onClick={toggle}
+            className={({ isActive }) =>
+              `${baseClass} ${isActive ? activeClass : inactiveClass}`
+            }
+          >
+            {item.icon}
+            <span>{item.name}</span>
+          </NavLink>
+        ))}
+      </nav>
 
-      {/* Bottom Section */}
+      {/* Logout */}
       <button
         onClick={handleLogout}
         className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-500 transition mt-10"
