@@ -7,9 +7,10 @@ import {
   FiUsers,
   FiShoppingBag,
   FiLogOut,
+  FiX
 } from "react-icons/fi";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, toggle }) => {
   const navigate = useNavigate();
 
   const menuItems = [
@@ -21,21 +22,30 @@ const Sidebar = () => {
     { name: "Orders", path: "/vendor/orders", icon: <FiShoppingBag /> },
   ];
 
-  // 🔥 Common styles
   const baseClass =
     "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200";
   const inactiveClass = "hover:bg-orange-500 text-gray-300";
   const activeClass = "bg-orange-600 text-white";
 
-  // 🔥 Logout logic (basic version)
   const handleLogout = () => {
-    localStorage.removeItem("token"); // adjust based on your auth
-    navigate("/login");
+    localStorage.removeItem("token");
+    navigate("../vendor-login");
   };
 
   return (
-    <div className="w-64 h-screen fixed bg-gray-900 text-white p-5 flex flex-col justify-between">
-      
+    <div
+      className={`fixed top-0 left-0 h-full w-64 bg-[#0B1A2C] text-white p-5 transform transition-transform duration-300 z-50
+      ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+    >
+
+      {/* Close Button */}
+      <button
+        onClick={toggle}
+        className="text-white text-2xl mb-4"
+      >
+        <FiX />
+      </button>
+
       {/* Top Section */}
       <div>
         <h2 className="text-xl font-bold mb-8 tracking-wide">
@@ -47,10 +57,9 @@ const Sidebar = () => {
             <NavLink
               key={item.name}
               to={item.path}
+              onClick={toggle}
               className={({ isActive }) =>
-                `${baseClass} ${
-                  isActive ? activeClass : inactiveClass
-                }`
+                `${baseClass} ${isActive ? activeClass : inactiveClass}`
               }
             >
               {item.icon}
@@ -60,10 +69,10 @@ const Sidebar = () => {
         </nav>
       </div>
 
-      {/* Bottom Section (Logout) */}
+      {/* Bottom Section */}
       <button
         onClick={handleLogout}
-        className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-500 transition"
+        className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-500 transition mt-10"
       >
         <FiLogOut />
         Logout
