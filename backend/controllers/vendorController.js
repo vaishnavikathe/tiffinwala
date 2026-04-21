@@ -181,3 +181,62 @@ export const getVendorDetails = async (req, res) => {
     });
   }
 };
+
+//update vendor profile
+export const updateVendorProfile = async (req,res) =>{
+  try {
+    const vendorId = req.vendorId;
+    const { name, email, phone, shopName, address, password } = req.body;
+
+    const vendor = await Vendor.findById(vendorId);
+
+    if(!vendor){
+      res.status(404).json({message:"Vendor not found"});
+    }
+    const isMatch = await bcrypt.compare(password,vendor.password);
+
+    if(!isMatch){
+      res.status(401).json({message:"Incorrect password"})
+    }
+
+    vendor.ownerName = name || vendor.ownerName;
+    vendor.email = email || vendor.email;
+    vendor.address = address || vendor.address;
+    vendor.mobile = mobile || vendor.mobile;
+    vendor.shopName = shopName || vendor.shopName
+
+    await vendor.save()
+    res.json({ message: "Profile updated successfully", vendor });
+
+
+  }
+  catch(error){
+     res.status(500).json({ error: error.message });
+  }
+};
+
+//Update password 
+export const updateVendorPassword = async (req,res)=>{
+  try{
+    const vendorId = req.vendorId;
+    const {oldPassword,newPassword} = req.body;
+
+    const vendor = await Vendor.findById(vendorId);
+
+    if(!vendor){
+      res.status(404).json({message:"Vendot Not found"})
+    }
+    const isMatch = await bcrypt.compare(oldPassword, vendor.password);
+
+    if(!isMatch){
+      res.status(401).json({message:"Incorrect Password"})
+    }
+    const salt = await bcrypt.genSalt(10);
+    vendor.password = await bcrypt.hash(newPassword, salt);
+    await vendor.save();
+    res.json({ message: "Password updated successfully" })
+  }
+  catch(error){
+    res.status(500).json({error:error.message})
+  }
+};
