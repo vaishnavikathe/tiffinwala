@@ -13,6 +13,7 @@ import {
 const Sidebar = ({ isOpen, toggle }) => {
   const navigate = useNavigate();
 
+
   const menuItems = [
     { name: "Dashboard", path: "/vendor/dashboard", icon: <FiHome /> },
     { name: "Add Plan", path: "/vendor/add-plan", icon: <FiPlusCircle /> },
