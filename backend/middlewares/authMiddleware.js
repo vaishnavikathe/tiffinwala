@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-// USER
+// ================= USER =================
 export const protectUser = (req, res, next) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
@@ -15,7 +15,7 @@ export const protectUser = (req, res, next) => {
       return res.status(403).json({ message: "Access denied" });
     }
 
-    req.userId = decoded.id;
+    req.user = decoded; // ✅ FIX
 
     next();
   } catch (err) {
@@ -23,7 +23,7 @@ export const protectUser = (req, res, next) => {
   }
 };
 
-//VENDOR 
+// ================= VENDOR =================
 export const protectVendor = (req, res, next) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
@@ -38,7 +38,7 @@ export const protectVendor = (req, res, next) => {
       return res.status(403).json({ message: "Access denied" });
     }
 
-    req.vendorId = decoded.id;
+    req.user = decoded; // ✅ FIX (IMPORTANT)
 
     next();
   } catch (err) {
