@@ -15,8 +15,7 @@ const planSchema = new mongoose.Schema({
   vendorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Vendor",
-    required: true,
-    unique: true
+    required: true
   },
 
   planTypes: {

@@ -56,7 +56,8 @@ const AddMealPlan = () => {
       alert("✅ Plan added");
 
     } catch (err) {
-      console.error(err);
+      console.log(err.response?.data);
+      alert(err.response?.data?.message);
       alert("❌ Failed");
     } finally {
       setLoading(false);
