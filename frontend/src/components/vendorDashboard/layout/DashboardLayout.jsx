@@ -16,18 +16,17 @@ const DashboardLayout = () => {
       />
 
       {/* Main Content */}
-      <div className="flex-1 min-h-screen bg-gray-50">
+      <div className="flex-1 min-h-screen bg-gray-50 md:ml-64">
 
-        {/* ✅ ONLY ONE NAVBAR HERE */}
+        {/* Navbar */}
         <Navbar toggle={() => setIsOpen(!isOpen)} />
 
-        {/* Pages render here */}
+        {/* Page Content */}
         <div className="p-6">
           <Outlet />
         </div>
 
       </div>
-
     </div>
   );
 };

@@ -23,7 +23,7 @@ const PlanManagement = () => {
   };
 
   return (
-    <DashboardLayout>
+    <>
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Plan Management</h1>
@@ -57,7 +57,7 @@ const PlanManagement = () => {
           initialData={editPlan}
         />
       )}
-    </DashboardLayout>
+    </>
   );
 };
 

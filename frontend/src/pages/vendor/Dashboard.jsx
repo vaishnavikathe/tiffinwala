@@ -1,4 +1,3 @@
-import DashboardLayout from "../../components/vendorDashboard/layout/DashboardLayout";
 import useVendorData from "../../hooks/useVendorData";
 import { FiUsers, FiBox, FiShoppingCart } from "react-icons/fi";
 
@@ -6,7 +5,7 @@ const Dashboard = () => {
   const { data, loading } = useVendorData();
 
   return (
-    <DashboardLayout>
+    <>
       <h2 className="heading mb-6">Dashboard</h2>
 
       {loading ? (
@@ -18,7 +17,7 @@ const Dashboard = () => {
             <FiUsers className="text-2xl text-orange-500" />
             <div>
               <p className="text-sm text-gray-500">Active Users</p>
-              <h3 className="text-xl font-bold">{data.activeUsers || 0}</h3>
+              <h3 className="text-xl font-bold">{data?.activeUsers || 0}</h3>
             </div>
           </div>
 
@@ -26,7 +25,7 @@ const Dashboard = () => {
             <FiBox className="text-2xl text-orange-500" />
             <div>
               <p className="text-sm text-gray-500">Plans</p>
-              <h3 className="text-xl font-bold">{data.plans || 0}</h3>
+              <h3 className="text-xl font-bold">{data?.plans || 0}</h3>
             </div>
           </div>
 
@@ -34,13 +33,13 @@ const Dashboard = () => {
             <FiShoppingCart className="text-2xl text-orange-500" />
             <div>
               <p className="text-sm text-gray-500">Orders</p>
-              <h3 className="text-xl font-bold">{data.orders || 0}</h3>
+              <h3 className="text-xl font-bold">{data?.orders || 0}</h3>
             </div>
           </div>
 
         </div>
       )}
-    </DashboardLayout>
+    </>
   );
 };
 
