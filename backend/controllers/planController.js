@@ -27,14 +27,34 @@ export const getPlans = async (req, res) => {
   try {
     const vendorId = req.user.id;
 
-    const plans = await Plan.find({ vendorId }).sort({ createdAt: -1 });
+    // ✅ query params
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
 
-    res.json(plans);
+    const skip = (page - 1) * limit;
+
+    // ✅ total count
+    const total = await Plan.countDocuments({ vendorId });
+
+    // ✅ paginated data
+    const plans = await Plan.find({ vendorId })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+      plans
+    });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
+
 
 export const deletePlan = async (req, res) => {
   try {
