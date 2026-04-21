@@ -1,6 +1,7 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import user from "../models/user.js";
 
 // REGISTER USER
 export const registerUser = async (req, res) => {
@@ -44,7 +45,7 @@ export const loginUser = async (req, res) => {
   try {
     const { mobile, email, password } = req.body;
 
-    // 🔥 dynamic query
+    // dynamic query
     let query = {};
 
     if (email) {
@@ -90,4 +91,98 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
+
+//update user details
+
+export const updateUserProfile = async (req, res) =>{
+  try{
+    const userId = req.userId;
+
+    const{
+      name,
+      email,
+      mobile,
+      address,
+      password
+    }=req.body;
+
+    const user = await User.findById(userId);
+
+    if(!user){
+      return res.status(404).json({
+        message:"User not found"
+      });
+    }
+
+    const isMatch = await bcrypt.compare(
+      password,
+    user.password
+  );
+   if(!isMatch){
+    return res.status(401).json({
+        message:"Incorrect Password"
+      });
+   } 
+
+   user.name = name || user.name;
+   user.email = email || user.email;
+   user.mobile = mobile || user.mobile;
+   user.address = address || user.address;
+
+   await user.save();
+
+   res.json({
+    message:"profile Updates Successfully!!",
+    user
+   });
+
+  }catch(error){
+       res.status(500).json({
+        error:error.message
+       });
+  }
+};
+
+//Update Password
+export const updateUserPassword = async(req, res) =>{
+try{
+  const userId = req.userId;
+  
+  const{
+    newPassword,
+    oldPassword
+  } = req.body;
+
+  const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({message:"User not found"});
+    }
+    const isMatch = await bcrypt.compare(
+      oldPassword,
+      user.password
+    );
+    if(!isMatch){
+      return res.status(401).json({
+        message:"Incorrect Password!!"
+      });
+    }
+    const salt = await bcrypt.genSalt(10);
+
+    user.password= await bcrypt.hash(
+      newPassword,
+      salt
+    );
+    await user.save();
+
+    res.json({
+      message:"Password Updated Successfully!!"
+    });
+}
+catch(error){
+  res.status(401).json({
+    error:message.error
+  });
+}
 };
