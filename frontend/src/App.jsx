@@ -12,6 +12,7 @@ import UserRegister from "./pages/Auth/UserRegister";
 // Home
 import Home from "./pages/Home/Home";
 import About from "./pages/Home/About";
+import Contact from "./pages/Home/Contact";
 
 // Protected and Vendor Pages
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -28,6 +29,7 @@ const App = () => {
         {/* Public */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/vendor-login" element={<VendorLogin />} />
         <Route path="/vendor-register" element={<VendorRegister />} />
         <Route path="/user-login" element={<UserLogin />} />
