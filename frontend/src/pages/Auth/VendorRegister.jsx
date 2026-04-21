@@ -57,7 +57,7 @@ const VendorRegister = () => {
         },
       });
 
-      navigate("/vendor/login");
+      navigate("/vendor-login");
 
     } catch (err) {
       setError(err.message || "Registration failed");
