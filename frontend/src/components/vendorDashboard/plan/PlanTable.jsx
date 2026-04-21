@@ -6,7 +6,7 @@ const PlanTable = ({ plans, onEdit, onDelete }) => {
       <table className="w-full text-left">
         <thead className="bg-gray-100">
           <tr>
-            <th className="p-3">#</th>
+            <th className="p-3">Sr no</th>
             <th className="p-3">Name</th>
             <th className="p-3">Price</th>
             <th className="p-3">Meals</th>
