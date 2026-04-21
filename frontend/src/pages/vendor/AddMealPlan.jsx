@@ -76,6 +76,7 @@ const AddMealPlan = () => {
               type="checkbox"
               checked={form.prepaid}
               onChange={() =>
+                
                 setForm({ ...form, prepaid: !form.prepaid })
               }
             />{" "}
