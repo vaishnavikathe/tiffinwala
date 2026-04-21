@@ -111,7 +111,7 @@ export const updateUserProfile = async (req, res) =>{
 
     if(!user){
       return res.status(404).json({
-        message="User not found"
+        message:"User not found"
       });
     }
 
@@ -121,7 +121,7 @@ export const updateUserProfile = async (req, res) =>{
   );
    if(!isMatch){
     return res.status(401).json({
-        message="Incorrect Password"
+        message:"Incorrect Password"
       });
    } 
 
@@ -133,7 +133,7 @@ export const updateUserProfile = async (req, res) =>{
    await user.save();
 
    res,json({
-    message="profile Updates Successfully!!",
+    message:"profile Updates Successfully!!",
     user
    });
 
@@ -157,9 +157,7 @@ try{
   const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({
-        message: "User not found"
-      });
+      return res.status(404).json({message:"User not found"});
     }
     const isMatch = await bcrypt.compare(
       oldPassword,
@@ -167,7 +165,7 @@ try{
     );
     if(!isMatch){
       return res.status(401).json({
-        message="Incorrect Password!!"
+        message:"Incorrect Password!!"
       });
     }
     const salt = await bcrypt.genSalt(10);
@@ -179,7 +177,7 @@ try{
     await user.save();
 
     res.json({
-      message="Password Updated Successfully!!"
+      message:"Password Updated Successfully!!"
     });
 }
 catch(error){
