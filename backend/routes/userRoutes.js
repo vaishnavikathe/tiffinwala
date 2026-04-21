@@ -1,9 +1,17 @@
 import express from "express";
-import { registerUser, loginUser } from "../controllers/userController.js";
+import { registerUser, loginUser, updateUserProfile, updateUserPassword } from "../controllers/userController.js";
+import { protectUser } from "../middleware/authMiddleware.js";
 
 const userroutes = express.Router();
 
+//public
 userroutes.post("/register", registerUser);
 userroutes.post("/login", loginUser);
+
+//protected
+userroutes.use(protectUser);
+userroutes.post("/update-profile", updateUserProfile);
+userroutes.post("/change-password", updateUserPassword);
+
 
 export default userroutes;
