@@ -1,51 +1,52 @@
 import { useState } from "react";
-import API from "../../services/api";
-import VendorNavbar from "../../components/VendorNavbar";
+import { addMenu } from "../../services/vendorApi";
+import DashboardLayout from "../../components/vendorDashboard/layout/DashboardLayout";
 
 const AddMenu = () => {
   const [menu, setMenu] = useState({
     day: "",
     lunch: "",
-    dinner: ""
+    dinner: "",
   });
-
-  const handleChange = (e) => {
-    setMenu({ ...menu, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      await API.post("/menu/create", menu, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-      });
-
-      alert("Menu Added");
-    } catch (err) {
-      console.log(err);
-    }
+    await addMenu(menu);
+    alert("Menu added");
   };
 
   return (
-    <div>
-      <VendorNavbar />
+    <DashboardLayout>
+      <h2 className="heading mb-6">Add Menu</h2>
 
-      <div className="section container-custom">
-        <h2 className="heading mb-6">Add Menu</h2>
+      <form onSubmit={handleSubmit} className="form-card space-y-4 max-w-3xl">
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid md:grid-cols-3 gap-4">
 
-          <input name="day" placeholder="Day (Monday)" onChange={handleChange} />
-          <input name="lunch" placeholder="Lunch Items" onChange={handleChange} />
-          <input name="dinner" placeholder="Dinner Items" onChange={handleChange} />
+          <input
+            placeholder="Day (Monday)"
+            className="p-3 border rounded"
+            onChange={e => setMenu({...menu, day: e.target.value})}
+          />
 
-          <button className="btn-primary">Add Menu</button>
-        </form>
-      </div>
-    </div>
+          <input
+            placeholder="Lunch Items"
+            className="p-3 border rounded"
+            onChange={e => setMenu({...menu, lunch: e.target.value})}
+          />
+
+          <input
+            placeholder="Dinner Items"
+            className="p-3 border rounded"
+            onChange={e => setMenu({...menu, dinner: e.target.value})}
+          />
+
+        </div>
+
+        <button className="btn-primary">Add Menu</button>
+
+      </form>
+    </DashboardLayout>
   );
 };
 

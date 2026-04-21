@@ -1,40 +1,46 @@
-import { useNavigate } from "react-router-dom";
-import VendorNavbar from "../../components/VendorNavbar";
+import DashboardLayout from "../../components/vendorDashboard/layout/DashboardLayout";
+import useVendorData from "../../hooks/useVendorData";
+import { FiUsers, FiBox, FiShoppingCart } from "react-icons/fi";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
+  const { data, loading } = useVendorData();
 
   return (
-    <div>
-      <VendorNavbar />
+    <DashboardLayout>
+      <h2 className="heading mb-6">Dashboard</h2>
 
-      <div className="section container-custom">
-        <h2 className="heading mb-6">Welcome Vendor 👋</h2>
+      {loading ? (
+        <p>Loading dashboard...</p>
+      ) : (
+        <div className="grid md:grid-cols-3 gap-6">
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-          <div className="card cursor-pointer"
-            onClick={() => navigate("/vendor/add-plan")}
-          >
-            <h3 className="font-semibold">Add Meal Plan</h3>
-            <p className="subheading">Create prepaid/postpaid plans</p>
+          <div className="card flex items-center gap-4">
+            <FiUsers className="text-2xl text-orange-500" />
+            <div>
+              <p className="text-sm text-gray-500">Active Users</p>
+              <h3 className="text-xl font-bold">{data.activeUsers || 0}</h3>
+            </div>
           </div>
 
-          <div className="card cursor-pointer"
-            onClick={() => navigate("/vendor/add-menu")}
-          >
-            <h3 className="font-semibold">Add Menu</h3>
-            <p className="subheading">Set daily meals</p>
+          <div className="card flex items-center gap-4">
+            <FiBox className="text-2xl text-orange-500" />
+            <div>
+              <p className="text-sm text-gray-500">Plans</p>
+              <h3 className="text-xl font-bold">{data.plans || 0}</h3>
+            </div>
           </div>
 
-          <div className="card">
-            <h3 className="font-semibold">Active Users</h3>
-            <p className="text-2xl mt-2 text-orange-600">0</p>
+          <div className="card flex items-center gap-4">
+            <FiShoppingCart className="text-2xl text-orange-500" />
+            <div>
+              <p className="text-sm text-gray-500">Orders</p>
+              <h3 className="text-xl font-bold">{data.orders || 0}</h3>
+            </div>
           </div>
 
         </div>
-      </div>
-    </div>
+      )}
+    </DashboardLayout>
   );
 };
 

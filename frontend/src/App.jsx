@@ -19,6 +19,7 @@ import Dashboard from "./pages/vendor/Dashboard";
 import AddMealPlan from "./pages/vendor/AddMealPlan";
 import EditMealPlan from "./pages/vendor/EditMealPlan";
 import AddMenu from "./pages/vendor/AddMenu";
+import Users from "./pages/vendor/Users";
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/vendor/add-plan" element={<AddMealPlan />} />
           <Route path="/vendor/edit-plan/:id" element={<EditMealPlan />} />
           <Route path="/vendor/add-menu" element={<AddMenu />} />
+          <Route path="/vendor/users" element={<Users />} />
         </Route>
 
       </Routes>
