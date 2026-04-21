@@ -1,4 +1,5 @@
 import { useState } from "react";
+<<<<<<< HEAD
 import { createPlan } from "../../services/vendorApi";
 import DashboardLayout from "../../components/vendorDashboard/layout/DashboardLayout";
 
@@ -61,11 +62,34 @@ const AddMealPlan = () => {
       alert("❌ Failed");
     } finally {
       setLoading(false);
+=======
+import DashboardLayout from "../../components/vendorDashboard/layout/DashboardLayout";
+import PlanTable from "../../components/vendorDashboard/plan/PlanTable";
+import PlanModal from "../../components/vendorDashboard/plan/PlanModal";
+
+const PlanManagement = () => {
+  const [plans, setPlans] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [editPlan, setEditPlan] = useState(null);
+
+  const handleCreate = (data) => {
+    setPlans([...plans, { ...data, id: Date.now() }]);
+  };
+
+  const handleUpdate = (updated) => {
+    setPlans(plans.map(p => (p.id === updated.id ? updated : p)));
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Delete this plan?")) {
+      setPlans(plans.filter(p => p.id !== id));
+>>>>>>> 54ca17f113624ec33d8ed65943b1b036d4174ce1
     }
   };
 
   return (
     <DashboardLayout>
+<<<<<<< HEAD
       <h2 className="heading mb-6">Add Meal Plan</h2>
 
       <form onSubmit={handleSubmit} className="form-card space-y-6 max-w-2xl">
@@ -186,8 +210,47 @@ const AddMealPlan = () => {
         </button>
 
       </form>
+=======
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Plan Management</h1>
+
+        <button
+          onClick={() => {
+            setEditPlan(null);
+            setIsOpen(true);
+          }}
+          className="btn-primary"
+        >
+          + Create Plan
+        </button>
+      </div>
+
+      {/* Table */}
+      <PlanTable
+        plans={plans}
+        onEdit={(plan) => {
+          setEditPlan(plan);
+          setIsOpen(true);
+        }}
+        onDelete={handleDelete}
+      />
+
+      {/* Modal */}
+      {isOpen && (
+        <PlanModal
+          onClose={() => setIsOpen(false)}
+          onSubmit={editPlan ? handleUpdate : handleCreate}
+          initialData={editPlan}
+        />
+      )}
+>>>>>>> 54ca17f113624ec33d8ed65943b1b036d4174ce1
     </DashboardLayout>
   );
 };
 
+<<<<<<< HEAD
 export default AddMealPlan;
+=======
+export default PlanManagement;
+>>>>>>> 54ca17f113624ec33d8ed65943b1b036d4174ce1
