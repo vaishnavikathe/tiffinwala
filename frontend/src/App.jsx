@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 // Layouts
 import Layout from "./components/layout/Layout";
-import DashboardLayout from "./components/vendorDashboard/layout/DashboardLayout";
+import DashboardLayout from "./components/vendorDashboard/layout/VendorDashboardLayout";
 
 // Auth Pages
 import VendorLogin from "./pages/Auth/VendorLogin";

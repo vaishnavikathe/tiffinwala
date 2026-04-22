@@ -1,5 +1,5 @@
 import { useState } from "react";
-import DashboardLayout from "../../components/vendorDashboard/layout/DashboardLayout";
+import DashboardLayout from "../../components/vendorDashboard/layout/VendorDashboardLayout";
 import PlanTable from "../../components/vendorDashboard/plan/PlanTable";
 import PlanModal from "../../components/vendorDashboard/plan/PlanModal";
 
