@@ -1,16 +1,18 @@
-import { FiMenu } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { FiMenu, FiX } from "react-icons/fi";
 
-const Navbar = ({ toggle }) => {
-  const navigate = useNavigate();
-
+const Navbar = ({ toggle, isOpen }) => {
   return (
     <div className="flex justify-between items-center bg-white p-4 shadow">
 
-      {/* Left */}
+      {/* Left side */}
       <div className="flex items-center gap-4">
-        <button onClick={toggle} className="text-2xl">
-          <FiMenu />
+
+        {/* ✅ SAME BUTTON (changes icon) */}
+        <button
+          onClick={toggle}
+          className="text-2xl"
+        >
+          {isOpen ? <FiX /> : <FiMenu />}
         </button>
 
         <h2 className="text-lg font-semibold">
@@ -22,12 +24,11 @@ const Navbar = ({ toggle }) => {
       <button
         onClick={() => {
           localStorage.removeItem("token");
-          navigate("/vendor-login");
+          window.location.href = "/vendor-login";
         }}
       >
         Logout
       </button>
-
     </div>
   );
 };

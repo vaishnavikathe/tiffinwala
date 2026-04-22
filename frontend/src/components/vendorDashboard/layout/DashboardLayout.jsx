@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 
 const DashboardLayout = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div className="flex">
@@ -16,10 +16,16 @@ const DashboardLayout = () => {
       />
 
       {/* Main Content */}
-      <div className="flex-1 min-h-screen bg-gray-50 md:ml-64">
-
+     <div
+  className={`flex-1 min-h-screen bg-gray-50 transition-all duration-300
+  ${isOpen ? "ml-64" : "ml-0"}`}
+>
         {/* Navbar */}
-        <Navbar toggle={() => setIsOpen(!isOpen)} />
+        {/* <Navbar toggle={() => setIsOpen(!isOpen)} /> */}
+       <Navbar
+  toggle={() => setIsOpen(!isOpen)}
+  isOpen={isOpen}
+/>
 
         {/* Page Content */}
         <div className="p-6">
@@ -28,7 +34,7 @@ const DashboardLayout = () => {
 
       </div>
     </div>
-  );
+  ); 
 };
 
 export default DashboardLayout;

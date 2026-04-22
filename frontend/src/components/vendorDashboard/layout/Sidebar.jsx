@@ -38,13 +38,7 @@ const Sidebar = ({ isOpen, toggle }) => {
       ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
     >
 
-      {/* Close button */}
-      <button
-        onClick={toggle}
-        className="text-white text-2xl mb-4"
-      >
-        <FiX />
-      </button>
+     
 
       {/* Menu */}
       <h2 className="text-xl font-bold mb-8 tracking-wide">
