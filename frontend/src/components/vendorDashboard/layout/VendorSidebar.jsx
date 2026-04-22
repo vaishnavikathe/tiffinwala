@@ -16,10 +16,9 @@ const Sidebar = ({ isOpen, toggle }) => {
   const menuItems = [
     { name: "Dashboard", path: "/vendor/dashboard", icon: <FiHome /> },
     { name: "Plan Management", path: "/vendor/add-plan", icon: <FiPlusCircle /> },
-    { name: "Update Plan", path: "/vendor/update-plan", icon: <FiEdit /> },
     { name: "Add Menu", path: "/vendor/add-menu", icon: <FiMenu /> },
     { name: "Users", path: "/vendor/users", icon: <FiUsers /> },
-    { name: "Orders", path: "/vendor/orders", icon: <FiShoppingBag /> },
+    
   ];
 
   const baseClass =

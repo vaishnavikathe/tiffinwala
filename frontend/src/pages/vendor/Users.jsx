@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "../../services/vendorApi";
-import DashboardLayout from "../../components/vendorDashboard/layout/DashboardLayout";
+import DashboardLayout from "../../components/vendorDashboard/layout/VendorDashboardLayout";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -13,8 +13,8 @@ const Users = () => {
   }, []);
 
   return (
-    <DashboardLayout>
-      <h2 className="heading mb-6">Active Users</h2>
+    <>
+      <h2 className="text-2xl font-semibold">Active Users</h2>
 
       {loading ? (
         <p>Loading users...</p>
@@ -45,7 +45,7 @@ const Users = () => {
           </table>
         </div>
       )}
-    </DashboardLayout>
+    </>
   );
 };
 
