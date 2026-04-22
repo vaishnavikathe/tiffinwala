@@ -65,8 +65,7 @@ const About = () => {
         </div>
       </div>
 
-      {/* Footer always at bottom */}
-      <Footer />
+      
 
     </div>
   );

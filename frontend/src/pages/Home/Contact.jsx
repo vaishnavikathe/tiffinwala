@@ -97,8 +97,7 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <Footer />
+      
 
     </div>
   );
