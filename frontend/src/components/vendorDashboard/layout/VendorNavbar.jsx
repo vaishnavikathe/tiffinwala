@@ -1,19 +1,21 @@
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu } from "react-icons/fi";
 
-const Navbar = ({ toggle, isOpen }) => {
+const Navbar = ({ openSidebar, isOpen }) => {
   return (
     <div className="flex justify-between items-center bg-white p-4 shadow">
 
       {/* Left side */}
       <div className="flex items-center gap-4">
 
-        {/* ✅ SAME BUTTON (changes icon) */}
-        <button
-          onClick={toggle}
-          className="text-2xl"
-        >
-          {isOpen ? <FiX /> : <FiMenu />}
-        </button>
+        {/* ☰ ONLY when sidebar is CLOSED */}
+        {!isOpen && (
+          <button
+            onClick={openSidebar}
+            className="text-2xl"
+          >
+            <FiMenu />
+          </button>
+        )}
 
         <h2 className="text-lg font-semibold">
           Welcome, Vendor 👋

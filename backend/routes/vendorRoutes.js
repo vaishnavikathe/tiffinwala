@@ -10,8 +10,6 @@ vendorroutes.post("/login", loginVendor);
 
 vendorroutes.use(protectVendor);
 
-
-vendorroutes.post("/add-menu", addMenu);
 vendorroutes.get("/all", getAllVendors);
 vendorroutes.get("/:id/details", getVendorDetails);
 vendorroutes.put("/update-profile", updateVendorProfile);

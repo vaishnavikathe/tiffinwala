@@ -12,29 +12,26 @@ const DashboardLayout = () => {
       {/* Sidebar */}
       <Sidebar
         isOpen={isOpen}
-        toggle={() => setIsOpen(!isOpen)}
+        closeSidebar={() => setIsOpen(false)}
       />
 
       {/* Main Content */}
-     <div
-  className={`flex-1 min-h-screen bg-gray-50 transition-all duration-300
-  ${isOpen ? "ml-64" : "ml-0"}`}
->
-        {/* Navbar */}
-        {/* <Navbar toggle={() => setIsOpen(!isOpen)} /> */}
-       <Navbar
-  toggle={() => setIsOpen(!isOpen)}
-  isOpen={isOpen}
-/>
+      <div
+        className={`flex-1 min-h-screen bg-gray-50 transition-all duration-300
+        ${isOpen ? "ml-64" : "ml-0"}`}
+      >
+        <Navbar
+          openSidebar={() => setIsOpen(true)}
+          isOpen={isOpen}   // 👈 IMPORTANT
+        />
 
-        {/* Page Content */}
         <div className="p-6">
           <Outlet />
         </div>
-
       </div>
+
     </div>
-  ); 
+  );
 };
 
 export default DashboardLayout;

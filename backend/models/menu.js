@@ -7,6 +7,12 @@ const menuSchema = new mongoose.Schema({
     required: true
   },
 
+  planId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Plan",
+    required: true
+  },
+
   day: {
     type: String,
     required: true
@@ -20,14 +26,8 @@ const menuSchema = new mongoose.Schema({
 
   items: [
     {
-      name: {
-        type: String,
-        required: true
-      },
-      type: {
-        type: String, // sabzi, dal, rice, etc
-        required: true
-      }
+      name: String,
+      type: String
     }
   ]
 
