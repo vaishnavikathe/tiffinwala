@@ -3,7 +3,8 @@ import {
   createPlan,
   getPlans,
   deletePlan,
-  updatePlan
+  updatePlan,
+  getVendorPlans
 } from "../controllers/planController.js";
 import { protectVendor } from "../middlewares/authMiddleware.js";
 
@@ -13,5 +14,7 @@ planRoutes.post("/create", protectVendor, createPlan);
 planRoutes.get("/", protectVendor, getPlans);
 planRoutes.delete("/:id", protectVendor, deletePlan);
 planRoutes.put("/:id", protectVendor, updatePlan);
+planRoutes.get("/vendor/:vendorId", getVendorPlans);
+planRoutes.get("/vendor/:id", getVendorPlans);
 
 export default planRoutes;

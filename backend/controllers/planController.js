@@ -106,3 +106,23 @@ export const updatePlan = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+export const getVendorPlans = async (req, res) => {
+  try {
+    const { vendorId } = req.params;
+
+    const plans = await Plan.find({ vendorId });
+
+    res.json({
+      message: "Plans fetched successfully",
+      plans
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: error.message
+    });
+  }
+};
