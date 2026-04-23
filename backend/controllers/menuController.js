@@ -1,14 +1,29 @@
 import Menu from "../models/menu.js";
 
-// CREATE MENU
+// ✅ CREATE MENU (PLAN-BASED)
 export const createMenu = async (req, res) => {
   try {
-    const vendorId = req.user.id; // from protectVendor
+    const vendorId = req.user.id;
 
-    const { day, mealType, items } = req.body;
+    const { planId, day, mealType, items } = req.body;
+
+    // optional: prevent duplicate (same plan + day + mealType)
+    const existing = await Menu.findOne({
+      vendorId,
+      planId,
+      day,
+      mealType
+    });
+
+    if (existing) {
+      return res.status(400).json({
+        message: "Menu already exists for this plan/day/meal"
+      });
+    }
 
     const menu = await Menu.create({
       vendorId,
+      planId,
       day,
       mealType,
       items
@@ -25,29 +40,50 @@ export const createMenu = async (req, res) => {
   }
 };
 
-// GET ALL MENUS (vendor)
-export const getMenus = async (req, res) => {
+export const getMenuByPlan = async (req, res) => {
   try {
-    const vendorId = req.user.id;
+    const { planId } = req.params;
 
-    const menus = await Menu.find({ vendorId })
+    const menus = await Menu.find({ planId })
       .sort({ createdAt: -1 });
 
-    res.json(menus);
+    res.json({
+      menus
+    });
 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// DELETE MENU
+
+export const getMenus = async (req, res) => {
+  try {
+    const vendorId = req.user.id;
+
+    const menus = await Menu.find({ vendorId })
+      .populate("planId") // useful for showing plan name in UI
+      .sort({ createdAt: -1 });
+
+    res.json({
+      menus
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 export const deleteMenu = async (req, res) => {
   try {
     const { id } = req.params;
 
     await Menu.findByIdAndDelete(id);
 
-    res.json({ message: "Menu deleted successfully" });
+    res.json({
+      message: "Menu deleted successfully"
+    });
 
   } catch (error) {
     res.status(500).json({ error: error.message });
