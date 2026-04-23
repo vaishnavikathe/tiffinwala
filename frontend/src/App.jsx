@@ -20,7 +20,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./pages/vendor/Dashboard";
 import AddMealPlan from "./pages/vendor/PlanManagement";
 import EditMealPlan from "./pages/vendor/EditMealPlan";
-import AddMenu from "./pages/vendor/AddMenu";
+import MenuManagement from "./pages/vendor/MenuManagement";
 import Users from "./pages/vendor/Users";
 
 const App = () => {
@@ -50,7 +50,7 @@ const App = () => {
           <Route path="/vendor/dashboard" element={<Dashboard />} />
           <Route path="/vendor/add-plan" element={<AddMealPlan />} />
           <Route path="/vendor/edit-plan/:id" element={<EditMealPlan />} />
-          <Route path="/vendor/add-menu" element={<AddMenu />} />
+          <Route path="/vendor/menu" element={<MenuManagement />} />
           <Route path="/vendor/users" element={<Users />} />
 
         </Route>

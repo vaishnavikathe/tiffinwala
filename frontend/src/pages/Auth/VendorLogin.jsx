@@ -30,26 +30,35 @@ const VendorLogin = () => {
 
   // ---------------- HANDLE SUBMIT ----------------
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    setLoading(true);
-    setError("");
+  setLoading(true);
+  setError("");
 
-    try {
-      const res = await loginVendor(formData);
+  try {
+    const res = await loginVendor(formData);
 
-      localStorage.setItem("token", res.token);
+    // ✅ store token
+    localStorage.setItem("token", res.token);
 
-      console.log("Vendor login:", res);
+    // ✅ store vendor name (IMPORTANT)
+    localStorage.setItem("vendorName", res.vendor.ownerName);
 
-      navigate("/vendor/dashboard");
+    // ✅ optional (nice UI)
+    localStorage.setItem("shopName", res.vendor.shopName);
 
-    } catch (err) {
-      setError(err.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+    console.log("Vendor login:", res);
+
+    navigate("/vendor/dashboard");
+
+  } catch (err) {
+    setError(err.message || "Login failed");
+  } finally {
+    setLoading(false);
+  }
+};
+
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FEF9F2] px-6">

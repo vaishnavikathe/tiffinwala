@@ -132,7 +132,7 @@ const VendorRegister = () => {
             placeholder="Enter your shop name"
             required
           />
-          <label className="block text-sm  text-gray-700 mb-1.5 ml-1">
+          <label className="block text-sm font text-gray-700 mb-1.5 ml-1">
     Shop Address
   </label>
     

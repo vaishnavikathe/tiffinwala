@@ -14,7 +14,7 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
   const menuItems = [
     { name: "Dashboard", path: "/vendor/dashboard", icon: <FiHome /> },
     { name: "Plan Management", path: "/vendor/add-plan", icon: <FiPlusCircle /> },
-    { name: "Add Menu", path: "/vendor/add-menu", icon: <FiMenu /> },
+    { name: "Menu Management", path: "/vendor/menu", icon: <FiMenu /> },
     { name: "Users", path: "/vendor/users", icon: <FiUsers /> },
   ];
 
@@ -23,8 +23,12 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
   const inactiveClass = "hover:bg-orange-500 text-gray-300";
   const activeClass = "bg-orange-600 text-white";
 
+  // ✅ ONLY ONE logout function (correct place)
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("vendorName"); // 🔥 important
+    localStorage.removeItem("shopName");   // optional
+
     navigate("/vendor-login");
   };
 
@@ -35,21 +39,18 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
       ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
     >
 
-      {/* 🔥 HEADER (Title + Close button in one row) */}
+      {/* HEADER */}
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-xl font-bold tracking-wide">
           TiffinWala
         </h2>
 
-        <button
-          onClick={closeSidebar}
-          className="text-2xl"
-        >
+        <button onClick={closeSidebar} className="text-2xl">
           <FiX />
         </button>
       </div>
 
-      {/* Menu */}
+      {/* MENU */}
       <nav className="flex flex-col gap-2">
         {menuItems.map((item) => (
           <NavLink
@@ -65,7 +66,7 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
         ))}
       </nav>
 
-      {/* Logout */}
+      {/* LOGOUT BUTTON */}
       <div className="absolute bottom-5 left-0 w-full px-5">
         <button
           onClick={handleLogout}
@@ -75,6 +76,7 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
           Logout
         </button>
       </div>
+
     </div>
   );
 };
