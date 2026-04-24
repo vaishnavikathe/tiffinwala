@@ -2,6 +2,7 @@ import Vendor from "../models/vendor.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Menu from "../models/menu.js";
+import Plan from "../models/plan.js";
 
 export const registerVendor= async (req,res)=>{
   try{
@@ -123,5 +124,133 @@ export const addMenu = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+// get vendors for user dashboard
+export const getAllVendors = async (req, res) => {
+  try {
+    // ✅ query params
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const skip = (page - 1) * limit;
+
+    // ✅ total count
+    const total = await Vendor.countDocuments();
+
+    // ✅ paginated data
+    const vendors = await Vendor.find()
+      .select("ownerName shopName cuisine address")
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+
+    return res.json({
+      message: "Vendors fetched successfully",
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+      vendors
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message
+    });
+  }
+};
+
+//GET SINGLE VENDOR DETAILS (IMPORTANT)
+export const getVendorDetails = async (req, res) => {
+  try {
+    const vendorId = req.params.id;
+
+    // vendor basic info
+    const vendor = await Vendor.findById(vendorId).select(
+      "ownerName shopName cuisine address"
+    );
+
+    if (!vendor) {
+      return res.status(404).json({
+        message: "Vendor not found"
+      });
+    }
+
+    // menu (7 days)
+    const menu = await Menu.findOne({ vendorId });
+
+    // plans (prepaid + postpaid)
+    const plan = await Plan.findOne({ vendorId });
+
+    return res.json({
+      message: "Vendor details fetched",
+      vendor,
+      menu,
+      plan
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message
+    });
+  }
+};
+
+//update vendor profile
+export const updateVendorProfile = async (req,res) =>{
+  try {
+    const vendorId = req.vendorId;
+    const { name, email, mobile, shopName, address, password } = req.body;
+
+    const vendor = await Vendor.findById(vendorId);
+
+    if(!vendor){
+      res.status(404).json({message:"Vendor not found"});
+    }
+    const isMatch = await bcrypt.compare(password,vendor.password);
+
+    if(!isMatch){
+      res.status(401).json({message:"Incorrect password"})
+    }
+
+    vendor.ownerName = name || vendor.ownerName;
+    vendor.email = email || vendor.email;
+    vendor.address = address || vendor.address;
+    vendor.mobile = mobile || vendor.mobile;
+    vendor.shopName = shopName || vendor.shopName
+
+    await vendor.save()
+    res.json({ message: "Profile updated successfully", vendor });
+
+
+  }
+  catch(error){
+     res.status(500).json({ error: error.message });
+  }
+};
+
+//Update password 
+export const updateVendorPassword = async (req,res)=>{
+  try{
+    const vendorId = req.vendorId;
+    const {oldPassword,newPassword} = req.body;
+
+    const vendor = await Vendor.findById(vendorId);
+
+    if(!vendor){
+      res.status(404).json({message:"Vendot Not found"})
+    }
+    const isMatch = await bcrypt.compare(oldPassword, vendor.password);
+
+    if(!isMatch){
+      res.status(401).json({message:"Incorrect Password"})
+    }
+    const salt = await bcrypt.genSalt(10);
+    vendor.password = await bcrypt.hash(newPassword, salt);
+    await vendor.save();
+    res.json({ message: "Password updated successfully" })
+  }
+  catch(error){
+    res.status(500).json({error:error.message})
   }
 };

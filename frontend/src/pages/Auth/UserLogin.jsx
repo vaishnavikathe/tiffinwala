@@ -4,6 +4,7 @@ import Card from "../../components/ui/Card";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import { loginUser } from "../../services/api";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"; 
 
 const UserLogin = () => {
   const navigate = useNavigate();
@@ -13,10 +14,11 @@ const UserLogin = () => {
     password: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false); 
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // ---------------- HANDLE INPUT ----------------
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -28,7 +30,6 @@ const UserLogin = () => {
     setError("");
   };
 
-  // ---------------- HANDLE SUBMIT ----------------
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,10 +39,10 @@ const UserLogin = () => {
     try {
       const res = await loginUser(formData);
 
+      localStorage.setItem("token", res.token);
+
       console.log("Login success:", res);
-
-      navigate("/dashboard");
-
+      navigate("/user/vendors");
     } catch (err) {
       setError(err.message || "Login failed");
     } finally {
@@ -73,18 +74,34 @@ const UserLogin = () => {
             required
           />
 
-          <Input
-            label="Password"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+          {/* 👇 Password with Eye Icon */}
+          <div className="relative">
+            <Input
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-9"
+            >
+              {showPassword ? (
+                <EyeSlashIcon className="h-5 w-5 text-gray-600" />
+              ) : (
+                <EyeIcon className="h-5 w-5 text-gray-600" />
+              )}
+            </button>
+          </div>
 
           <Button type="submit" disabled={loading} className="w-full">
             {loading ? "Logging in..." : "Login"}
           </Button>
+          
 
         </form>
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginVendor } from "../../services/api";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"; 
 
 const VendorLogin = () => {
   const navigate = useNavigate();
@@ -9,6 +10,8 @@ const VendorLogin = () => {
     identifier: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false); 
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,24 +30,35 @@ const VendorLogin = () => {
 
   // ---------------- HANDLE SUBMIT ----------------
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    setLoading(true);
-    setError("");
+  setLoading(true);
+  setError("");
 
-    try {
-      const res = await loginVendor(formData);
+  try {
+    const res = await loginVendor(formData);
 
-      console.log("Vendor login:", res);
+    // ✅ store token
+    localStorage.setItem("token", res.token);
 
-      navigate("/vendor/dashboard");
+    // ✅ store vendor name (IMPORTANT)
+    localStorage.setItem("vendorName", res.vendor.ownerName);
 
-    } catch (err) {
-      setError(err.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+    // ✅ optional (nice UI)
+    localStorage.setItem("shopName", res.vendor.shopName);
+
+    console.log("Vendor login:", res);
+
+    navigate("/vendor/dashboard");
+
+  } catch (err) {
+    setError(err.message || "Login failed");
+  } finally {
+    setLoading(false);
+  }
+};
+
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FEF9F2] px-6">
@@ -70,15 +84,30 @@ const VendorLogin = () => {
             required
           />
 
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Password"
-            className="w-full p-3 border rounded"
-            required
-          />
+          {/* 👇 Password with Eye Icon */}
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Password"
+              className="w-full p-3 border rounded pr-10"
+              required
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-3"
+            >
+              {showPassword ? (
+                <EyeSlashIcon className="h-5 w-5 text-gray-600" />
+              ) : (
+                <EyeIcon className="h-5 w-5 text-gray-600" />
+              )}
+            </button>
+          </div>
 
           <button
             type="submit"
