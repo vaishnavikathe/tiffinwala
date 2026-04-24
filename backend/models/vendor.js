@@ -1,31 +1,39 @@
 import mongoose from "mongoose";
 
-const vendorSchema= new mongoose.Schema({
+const Vendor= new mongoose.Schema({
 
-    ownwerName:{
+    ownerName:{
         type:String,
-        required:True,
+        required:true,
     },
     shopName:{
         type:String,
-        required:True,
+        required:true,
     },
-    addresss:{
+    address:{
         type:String,
-        required:True,
+        required:true,
     },
     mobile:{
         type:String,
-        required:True,
-        unique:True,
+        required:true,
+        unique:true,
     },
     password:{
         type:String,
+<<<<<<< HEAD
         required:True,
     },
     cuisine:{
         type:String,
         required:True,
+=======
+        required:true,
+    },
+    email:{
+        type:String,
+        required:true,
+>>>>>>> main
     }   
-},{ timestamps : True});
-export default mangoose.models('vendors',userSchema);
+},{ timestamps : true});
+export default mongoose.model('vendors',Vendor);

@@ -4,19 +4,20 @@ const userSchema= new mongoose.Schema({
 
     name:{
         type:String,
-        required:True,
+        required:true,
     },
-    addresss:{
+    address:{
         type:String,
-        required:True,
+        required:true,
     },
     mobile:{
         type:String,
-        required:True,
-        unique:True,
+        required:true,
+        unique:true,
     },
     password:{
         type:String,
+<<<<<<< HEAD
         required:True,
 <<<<<<< HEAD
     }   
@@ -29,3 +30,13 @@ const userSchema= new mongoose.Schema({
 >>>>>>> d7707ea (temp msg)
 },{ timestamps : True});
 export default mangoose.models('user',userSchema);
+=======
+        required:true,
+    },
+    email:{
+        type:String,
+        required:true,
+    }  
+},{ timestamps : true});
+export default mongoose.model('user',userSchema);
+>>>>>>> main

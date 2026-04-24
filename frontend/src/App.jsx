@@ -1,31 +1,66 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import About from './pages/About';
-import VendorRegister from './pages/VendorRegister';
-import VendorLogin from './pages/VendorLogin'; // Check if this filename is exactly VendorLogin.jsx
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import './index.css';
+// Layouts
+import Layout from "./components/layout/Layout";
+import DashboardLayout from "./components/vendorDashboard/layout/VendorDashboardLayout";
 
-function App() {
+// Auth Pages
+import VendorLogin from "./pages/Auth/VendorLogin";
+import VendorRegister from "./pages/Auth/VendorRegister";
+import UserLogin from "./pages/Auth/UserLogin";
+import UserRegister from "./pages/Auth/UserRegister";
+
+// Home Pages
+import Home from "./pages/Home/Home";
+import About from "./pages/Home/About";
+import Contact from "./pages/Home/Contact";
+
+// Protected + Vendor Pages
+import ProtectedRoute from "./components/ProtectedRoute";
+import Dashboard from "./pages/vendor/Dashboard";
+import AddMealPlan from "./pages/vendor/PlanManagement";
+import EditMealPlan from "./pages/vendor/EditMealPlan";
+import MenuManagement from "./pages/vendor/MenuManagement";
+import Users from "./pages/vendor/Users";
+
+const App = () => {
   return (
-    <Router>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/vendor" element={<VendorRegister />} />
-            <Route path="/login" element={<VendorLogin />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <Routes>
+
+      {/*  MAIN WEBSITE */}
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Route>
+
+      {/* AUTH PAGES */}
+      <Route path="/vendor-login" element={<VendorLogin />} />
+      <Route path="/vendor-register" element={<VendorRegister />} />
+      <Route path="/user-login" element={<UserLogin />} />
+      <Route path="/user-register" element={<UserRegister />} />
+
+      {/*  VENDOR DASHBOARD */}
+      <Route element={<ProtectedRoute />}>
+        <Route element={<DashboardLayout />}>
+
+          {/* Redirect (optional but useful) */}
+          <Route path="/vendor" element={<Navigate to="/vendor/dashboard" />} />
+
+          <Route path="/vendor/dashboard" element={<Dashboard />} />
+          <Route path="/vendor/add-plan" element={<AddMealPlan />} />
+          <Route path="/vendor/edit-plan/:id" element={<EditMealPlan />} />
+          <Route path="/vendor/menu" element={<MenuManagement />} />
+          <Route path="/vendor/users" element={<Users />} />
+
+        </Route>
+      </Route>
+
+      {/*  404 PAGE (optional but recommended) */}
+      <Route path="*" element={<h1 className="text-center mt-10 text-2xl">404 - Page Not Found</h1>} />
+
+    </Routes>
   );
-}
+};
 
 export default App;

@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 const adminSchema = new mongoose.Schema({
     email:{
         type:String,
-        required:True,
-        unique:True
+        required:true,
+        unique:true
     },
     password:{
         type:String,
-        required:True
+        required:true
     }
 })
-export default mangoose.models('admin',adminSchema);
+export default mongoose.models('admin',adminSchema);
