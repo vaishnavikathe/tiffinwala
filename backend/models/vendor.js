@@ -21,11 +21,19 @@ const Vendor= new mongoose.Schema({
     },
     password:{
         type:String,
+<<<<<<< HEAD
+        required:True,
+    },
+    cuisine:{
+        type:String,
+        required:True,
+=======
         required:true,
     },
     email:{
         type:String,
         required:true,
+>>>>>>> main
     }   
 },{ timestamps : true});
 export default mongoose.model('vendors',Vendor);
