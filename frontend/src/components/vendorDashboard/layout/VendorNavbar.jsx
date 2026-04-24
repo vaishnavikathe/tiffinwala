@@ -1,5 +1,7 @@
 import { FiMenu } from "react-icons/fi";
 
+
+const vendorName = localStorage.getItem("vendorName");
 const Navbar = ({ openSidebar, isOpen }) => {
   return (
     <div className="flex justify-between items-center bg-white p-4 shadow">
@@ -18,19 +20,12 @@ const Navbar = ({ openSidebar, isOpen }) => {
         )}
 
         <h2 className="text-lg font-semibold">
-          Welcome, Vendor 👋
-        </h2>
+  Welcome, {vendorName || "Vendor"} 👋
+</h2>
       </div>
 
       {/* Logout */}
-      <button
-        onClick={() => {
-          localStorage.removeItem("token");
-          window.location.href = "/vendor-login";
-        }}
-      >
-        Logout
-      </button>
+      
     </div>
   );
 };

@@ -4,10 +4,30 @@ import Menu from "../models/menu.js";
 export const createMenu = async (req, res) => {
   try {
     const vendorId = req.user.id;
+    console.log("FULL BODY:", req.body);
+    console.log("ITEMS TYPE:", typeof req.body.items);
 
-    const { planId, day, mealType, items } = req.body;
+    let { planId, day, mealType, items } = req.body;
 
-    // optional: prevent duplicate (same plan + day + mealType)
+    // ✅ FIX: handle stringified items (your current bug)
+    if (typeof items === "string") {
+      try {
+        items = JSON.parse(items);
+      } catch (err) {
+        return res.status(400).json({
+          message: "Invalid items format (must be JSON array)"
+        });
+      }
+    }
+
+    // ✅ Validate items is array
+    if (!Array.isArray(items)) {
+      return res.status(400).json({
+        message: "Items must be an array"
+      });
+    }
+
+    // ✅ Prevent duplicate (same plan + day + mealType)
     const existing = await Menu.findOne({
       vendorId,
       planId,
@@ -39,7 +59,6 @@ export const createMenu = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 export const getMenuByPlan = async (req, res) => {
   try {
     const { planId } = req.params;
