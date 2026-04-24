@@ -42,7 +42,7 @@ const UserLogin = () => {
       localStorage.setItem("token", res.token);
 
       console.log("Login success:", res);
-      navigate("/dashboard");
+      navigate("/user/vendors");
     } catch (err) {
       setError(err.message || "Login failed");
     } finally {
